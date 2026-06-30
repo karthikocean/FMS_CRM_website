@@ -1,17 +1,17 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   FiHome, FiPackage, FiTool,
   FiZap, FiMessageSquare,
   FiUsers, FiClipboard, FiGrid, FiGitBranch, FiEdit3,
   FiSettings,
-  FiSend
+  FiSend, FiX
 } from "react-icons/fi";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-import "../../styles/SolutionsPage.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "../styles/SolutionsPage.css";
 
 // Animation variants
 const fadeUp = {
@@ -35,28 +35,29 @@ const scaleIn = {
 };
 
 const SolutionsPage = () => {
-  React.useEffect(() => {
-    const wrappers = document.querySelectorAll(".sticky-wrapper");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          } else {
-            entry.target.classList.remove("active");
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "-10% 0px -10% 0px"
+  // No JS scroll listeners or Intersection Observer needed for pure CSS sticky layout
+  const [selectedModule, setSelectedModule] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelectedModule(null);
       }
-    );
-    wrappers.forEach((wrapper) => observer.observe(wrapper));
-    return () => {
-      wrappers.forEach((wrapper) => observer.unobserve(wrapper));
     };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (selectedModule) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedModule]);
 
   const modules = [
     {
@@ -207,7 +208,14 @@ const SolutionsPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/solutions" className="btn btn-primary detail-cta">
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedModule(module);
+                  }}
+                  className="btn btn-primary detail-cta"
+                >
                   Explore Solution
                 </Link>
               </div>
@@ -305,6 +313,68 @@ const SolutionsPage = () => {
         </div>
 
       </section>
+
+      <AnimatePresence>
+        {selectedModule && (
+          <div className="modal-overlay-wrapper">
+            <motion.div
+              className="modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedModule(null)}
+            />
+            <motion.div
+              className="modal-card-container"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="modal-header">
+                <h3 className="modal-module-title">{selectedModule.title}</h3>
+                <button
+                  className="modal-close-btn"
+                  onClick={() => setSelectedModule(null)}
+                  aria-label="Close modal"
+                >
+                  <FiX />
+                </button>
+              </div>
+              
+              <div className="modal-body-grid">
+                <div className="modal-left-side">
+                  <div className="modal-image-box">
+                    <img
+                      src={selectedModule.img}
+                      alt={selectedModule.title}
+                      className="modal-module-img"
+                    />
+                  </div>
+                </div>
+                
+                <div className="modal-right-side">
+                  <p className="modal-module-desc">{selectedModule.description}</p>
+                  
+                  <ul className="modal-module-bullets">
+                    {selectedModule.bullets.map((b, i) => (
+                      <li key={i}>
+                        <span className="modal-check-icon">✔</span> {b}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="modal-additional-features">
+                    <span className="modal-badge-tag">Enterprise Ready</span>
+                    <span className="modal-badge-tag">SLA Tracking</span>
+                    <span className="modal-badge-tag">API Support</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
