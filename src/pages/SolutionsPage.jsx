@@ -6,7 +6,10 @@ import {
   FiZap, FiMessageSquare,
   FiUsers, FiClipboard, FiGrid, FiGitBranch, FiEdit3,
   FiSettings,
-  FiSend, FiX
+  FiSend, FiX, FiArrowUpRight,
+  FiDatabase, FiCalendar, FiTrendingUp, FiShield, FiDollarSign,
+  FiCheckCircle, FiLayers, FiBarChart2, FiAward, FiActivity,
+  FiCheck, FiArrowRightCircle
 } from "react-icons/fi";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import Navbar from "../components/Navbar";
@@ -35,7 +38,7 @@ const scaleIn = {
 };
 
 const SolutionsPage = () => {
-  // No JS scroll listeners or Intersection Observer needed for pure CSS sticky layout
+  const [hoveredIndex, setHoveredIndex] = useState(0);
   const [selectedModule, setSelectedModule] = useState(null);
 
   useEffect(() => {
@@ -61,46 +64,174 @@ const SolutionsPage = () => {
 
   const modules = [
     {
-      title: "Asset Management",
-      description:
-        "Comprehensive tracking and lifecycle management for all facility assets.",
-      bullets: [
-        "Real-time Asset Location",
-        "Predictive Maintenance Alerts",
-        "Custom Lifecycle Stages",
-        "Integrated Cost Tracking",
-        "Barcode & RFID Support",
-        "Analytics Dashboard",
-      ],
+      title: "Asset & Maintenance",
+      description: "Manage assets across their lifecycle.",
+      modalDescription: "FacilityCore's Asset & Maintenance module helps you manage your assets throughout their entire life cycle—from acquisition to disposal. Plan preventive maintenance, handle breakdowns quickly, track costs, and extend asset life with data-driven decisions.",
+      icon: <FiPackage />,
       img: "/sectionpagedashboard.png",
+      link: "/solutions/asset-management",
+      tagline: "Keep every asset reliable, safe and performing at its best.",
+      tags: [
+        "Lifecycle Management",
+        "Preventive Maintenance",
+        "Reactive Maintenance",
+        "Work Orders",
+        "SLA & Compliance",
+        "Analytics & Reports"
+      ],
+      whatICanDoDetails: [
+        { title: "Centralize All Assets", desc: "Maintain a single, accurate repository of all your assets with details, documents, warranty and locations." },
+        { title: "Plan Preventive Maintenance", desc: "Create maintenance schedules based on time, usage or meter reading to prevent breakdowns and reduce downtime." },
+        { title: "Manage Work Orders", desc: "Raise, assign and track work orders from one place. Monitor status, priority, SLA and resolution." },
+        { title: "Track Asset Performance", desc: "Monitor asset health, service history, costs and performance metrics to make better decisions." },
+        { title: "Ensure Compliance", desc: "Stay audit-ready with inspection checklists, compliance schedules and digital certifications." },
+        { title: "Control Maintenance Costs", desc: "Analyze costs, vendors and resources to optimize budgets and improve operational efficiency." }
+      ],
+      whatICanDo: [],
+      keyFeatures: [
+        "Asset Register & Classification – Maintain all asset details, hierarchy, location, documents and lifecycle.",
+        "Preventive Maintenance (PPM) – Create PPM plans, checklists and auto-generate work orders.",
+        "Reactive Maintenance – Raise service requests and convert them into work orders instantly.",
+        "Work Order Management – Assign, track and close work orders with time, cost and resource details.",
+        "SLA Management – Define SLA rules, track breaches and take corrective actions.",
+        "Asset Condition Monitoring – Track condition, readings, warranty, AMC and spare parts.",
+        "Cost Tracking – Monitor maintenance cost, parts cost, labor cost and overall asset cost.",
+        "Reports & Analytics – Get real-time insights on assets, breakdowns, MTTR, costs and more."
+
+      ],
+      benefits: [
+        "Reduced breakdowns and unplanned downtime",
+        "Extended asset life and better performance",
+        "Lower maintenance and repair costs",
+        "Improved compliance and safety",
+        "Data-driven decisions with real-time insights"
+      ]
     },
     {
-      title: "Preventive Maintenance",
-      description:
-        "Schedule and automate routine maintenance to reduce downtime and improve operational efficiency.",
-      bullets: [
-        "Dynamic Work Order Generation",
-        "AI-driven Frequency Optimization",
-        "Mobile Technician App",
-        "Resource Allocation Tools",
-        "Compliance Reporting",
-        "Performance KPIs",
+      title: "Visitor Management",
+      description: "Automate schedules and routine maintenance.",
+      modalDescription: "FacilityCore's Visitor Management system helps you manage pre-registrations, approvals, digital check-ins, visitor passes, meetings and logs—all in one place. Ensure better security, improve compliance and create a modern visitor experience.",
+      icon: <FiTool />,
+      img: "/pmworking.png",
+      link: "/solutions/preventive-maintenance",
+      tagline: "Secure every entry. Delight every visitor.",
+      whatICanDo: [
+        "Schedule calendar-based recurring maintenance automatically",
+        "Assign tasks to qualified technicians dynamically",
+        "Log hours and verify tasks using checklist verification",
+        "Track compliance with safety regulations and vendor SLAs"
       ],
-      img: "/preventivemaintenance.png",
+      keyFeatures: [
+        "Intelligent Calendar Scheduling UI",
+        "Dynamic Run-Hours & Threshold Triggering",
+        "SLA Tracking and Auto-Escalation alerts",
+        "Mobile-Friendly Checksheets for technicians"
+      ],
+      benefits: [
+        "Prevent costly downtime with timely checkups",
+        "Extend average equipment lifespan significantly",
+        "Reduce emergency reactive repairs by over 40%"
+      ]
     },
     {
       title: "Vendor Management",
-      description:
-        "Centralize vendor contracts, performance, and communication in a single platform.",
-      bullets: [
-        "Contract Repository",
-        "SLA & KPI Tracking",
-        "Automated Vendor Rating",
-        "Integrated Purchase Orders",
-        "Secure Document Exchange",
-        "Vendor Performance Analytics",
+      description: "Centralize contracts and vendor performance.",
+      icon: <FiUsers />,
+      img: "/vendormangemnt.png",
+      link: "/solutions/vendor-management",
+      tagline: "Collaborate seamlessly with third-party service providers",
+      whatICanDo: [
+        "Centralize contract repositories and renewal dates",
+        "Log and track vendor service hours and compliance levels",
+        "Enable safe communication and invoice routing",
+        "Rate performance based on completed SLA metrics"
       ],
-      img: "/vendormanagement.png",
+      keyFeatures: [
+        "Centralized Vendor Registry & Profile logs",
+        "Automated Renewal and Compliance alerts",
+        "Secure External Vendor Dispatch portal",
+        "KPI and Performance Rating Scorecards"
+      ],
+      benefits: [
+        "Mitigate liability and safety violations",
+        "Boost quality of work via continuous evaluation",
+        "Reduce administration and vendor overhead costs"
+      ]
+    },
+    {
+      title: "Reactive Maintenance",
+      description: "Respond quickly to breakdowns and service requests.",
+      icon: <FiZap />,
+      img: "/workflowautomation.png",
+      link: "/solutions/reactive-maintenance",
+      tagline: "Resolve emergencies and unexpected failures instantly",
+      whatICanDo: [
+        "Log maintenance requests and breakdowns instantly",
+        "Route tickets to the nearest available technician automatically",
+        "Send real-time progress updates to requesters",
+        "Diagnose issues remotely using photos and comments"
+      ],
+      keyFeatures: [
+        "Rapid Ticketing Request & Dispatch Form",
+        "SMS, Email, and Push Notification warnings",
+        "Real-Time Technician Location & Map updates",
+        "Direct Photo, Video, and Document uploads"
+      ],
+      benefits: [
+        "Slash overall average response times in half",
+        "Restore core services immediately after failures",
+        "Increase tenant and stakeholder communication quality"
+      ]
+    },
+    {
+      title: "Helpdesk Portal",
+      description: "Centralized support requests and issue tracking.",
+      icon: <FiMessageSquare />,
+      img: "/sectionpagedashboard.png",
+      link: "/solutions/helpdesk-portal",
+      tagline: "Empower your team with a simple, branded service portal",
+      whatICanDo: [
+        "Provide users with a portal to submit issues",
+        "Log ticket progress and reference knowledge articles",
+        "Send automatic status emails as tickets update",
+        "Gather customer feedback with custom ratings"
+      ],
+      keyFeatures: [
+        "Brandable Tenant & Client Web Portal interface",
+        "Automated Priority Routing & Ticket Assignment",
+        "Built-in FAQs & Knowledge Base library system",
+        "Post-Resolution Satisfaction Surveys"
+      ],
+      benefits: [
+        "Improve tenant and user satisfaction scores",
+        "Eliminate cluttered emails and messy calls",
+        "Understand response performance with exact metrics"
+      ]
+    },
+    {
+      title: "Compliance Logs",
+      description: "Maintain audit-ready compliance records and reports.",
+      icon: <FiClipboard />,
+      img: "/qrtracking.png",
+      link: "/solutions/compliance-logs",
+      tagline: "Guarantee safety compliance and pass audits effortlessly",
+      whatICanDo: [
+        "Schedule and enforce mandatory safety checks",
+        "Digitally store licenses, permits, and inspection certs",
+        "Track compliance progress with audit dashboards",
+        "Log security and safety violations instantly"
+      ],
+      keyFeatures: [
+        "Digital Checksheets with digital signatures",
+        "License & Certificate expiry trackers",
+        "Exportable PDF/Excel Reports for audit checks",
+        "Encrypted Immutable Safety and Log history"
+      ],
+      benefits: [
+        "Achieve complete peace of mind during inspections",
+        "Ensure compliance with local code and standards",
+        "Eliminate paper records and audit prep stress"
+      ],
     },
   ];
 
@@ -192,44 +323,141 @@ const SolutionsPage = () => {
       {/* Detailed Solution Modules */}
 
       <section className="detailed-modules">
-        {modules.map((module, index) => (
-          <div className="sticky-wrapper" key={index}>
-            <div
-              className={`detail-card ${index % 2 === 0 ? "layout-left" : "layout-right"
-                }`}
-            >
-              <div className="detail-left">
-                <h3 className="detail-title">{module.title}</h3>
-                <p className="detail-desc">{module.description}</p>
-                <ul className="detail-bullets">
-                  {module.bullets.map((b, i) => (
-                    <li key={i}>
-                      <span className="check-icon">✔</span> {b}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedModule(module);
-                  }}
-                  className="btn btn-primary detail-cta"
-                >
-                  Explore Solution
-                </Link>
+        <div className="detailed-modules-header">
+          <h2 className="detailed-modules-heading">Detailed Solution Modules</h2>
+        </div>
+
+        <div className="solutions-split-layout">
+          {/* LEFT SIDE */}
+          <div className="solutions-layout-left">
+            <img
+              src={modules[hoveredIndex]?.img || modules[0]?.img}
+              alt={modules[hoveredIndex]?.title || "Solution Image"}
+              className="solutions-large-img"
+            />
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="solutions-layout-right">
+            {modules.map((module, index) => (
+              <Link
+                key={index}
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedModule(module);
+                }}
+                className={`feature-card ${hoveredIndex === index ? "active" : ""}`}
+                onMouseEnter={() => setHoveredIndex(index)}
+              >
+                <div className="card-left">
+                  <div className="card-icon-container">
+                    {module.icon}
+                  </div>
+                  <div className="card-info">
+                    <h3 className="card-heading">{module.title}</h3>
+                    <p className="card-description">{module.description}</p>
+                  </div>
+                </div>
+                <div className="card-arrow-container">
+                  <div className="arrow-btn">
+                    <FiArrowUpRight />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modal for selected module */}
+      {selectedModule && (
+        <div className="modal-overlay" onClick={() => setSelectedModule(null)}>
+          <motion.div
+            className="modal-content"
+            variants={scaleIn}
+            initial="hidden"
+            animate="visible"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close" onClick={() => setSelectedModule(null)}>
+              <FiX size={24} />
+            </button>
+            <div className="modal-row">
+              <div className="modal-row-left">
+                <img src={selectedModule.img} alt={selectedModule.title} className="modal-image" />
               </div>
-              <div className="detail-right">
-                <img
-                  src={module.img}
-                  alt={module.title}
-                  className="detail-img"
-                />
+              <div className="modal-row-right">
+                <h2 className="modal-title">{selectedModule.title}</h2>
+                <p className="modal-tagline">{selectedModule.tagline}</p>
+                <p className="modal-description">{selectedModule.modalDescription}</p>
+                <div className="modal-tags">
+                  {selectedModule.tags?.map((tag, i) => (
+                    <span key={i} className="modal-tag">{tag}</span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </section>
+
+            <div className="modal-card modal-whatcando">
+              <h3 className="modal-section-title">What You Can Do</h3>
+              <div className="whatcando-grid">
+                {(() => {
+                  const icons = [<FiPackage />, <FiTool />, <FiSettings />, <FiClipboard />, <FiShield />, <FiBarChart2 />];
+                  return selectedModule.whatICanDoDetails?.map((item, i) => (
+                    <div key={i} className="whatcando-item">
+                      <div className="whatcando-icon">{icons[i % icons.length]}</div>
+                      <div className="whatcando-content">
+                        <h4 className="whatcando-title">{item.title}</h4>
+                        <p className="whatcando-desc">{item.desc}</p>
+                      </div>
+                    </div>
+                  ));
+                })()}
+              </div>
+            </div>
+
+            <div className="modal-features-grid">
+              <div className="modal-card">
+                <h3 className="modal-section-title">Key Features</h3>
+                <ul className="modal-keyfeatures-list">
+                  {selectedModule.keyFeatures?.map((item, i) => {
+                    const parts = item.split(' – ');
+                    const title = parts[0];
+                    const desc = parts.slice(1).join(' – ');
+                    return (
+                      <li key={i} className="modal-keyfeatures-item">
+                        <FiCheckCircle size={22} className="modal-keyfeatures-icon" />
+                        <div className="modal-keyfeatures-text">
+                          <span className="modal-keyfeatures-title">{title}</span>{desc && (<span className="modal-keyfeatures-desc"> – {desc}</span>)}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="modal-card">
+                <h3 className="modal-section-title">Benefits</h3>
+                <ul className="modal-benefits-list">
+                  {selectedModule.benefits?.map((item, i) => {
+                    const parts = item.split(' – ');
+                    const title = parts[0];
+                    const desc = parts.slice(1).join(' – ');
+                    return (
+                      <li key={i} className="modal-benefits-item">
+                        <FiCheckCircle size={22} className="modal-benefits-icon" />
+                        <div className="modal-benefits-text">
+                          <span className="modal-benefits-title">{title}</span>{desc && (<span className="modal-benefits-desc"> – {desc}</span>)}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Workflow Section */}
       <section className="workflow-section">
@@ -314,67 +542,7 @@ const SolutionsPage = () => {
 
       </section>
 
-      <AnimatePresence>
-        {selectedModule && (
-          <div className="modal-overlay-wrapper">
-            <motion.div
-              className="modal-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedModule(null)}
-            />
-            <motion.div
-              className="modal-card-container"
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="modal-header">
-                <h3 className="modal-module-title">{selectedModule.title}</h3>
-                <button
-                  className="modal-close-btn"
-                  onClick={() => setSelectedModule(null)}
-                  aria-label="Close modal"
-                >
-                  <FiX />
-                </button>
-              </div>
-              
-              <div className="modal-body-grid">
-                <div className="modal-left-side">
-                  <div className="modal-image-box">
-                    <img
-                      src={selectedModule.img}
-                      alt={selectedModule.title}
-                      className="modal-module-img"
-                    />
-                  </div>
-                </div>
-                
-                <div className="modal-right-side">
-                  <p className="modal-module-desc">{selectedModule.description}</p>
-                  
-                  <ul className="modal-module-bullets">
-                    {selectedModule.bullets.map((b, i) => (
-                      <li key={i}>
-                        <span className="modal-check-icon">✔</span> {b}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <div className="modal-additional-features">
-                    <span className="modal-badge-tag">Enterprise Ready</span>
-                    <span className="modal-badge-tag">SLA Tracking</span>
-                    <span className="modal-badge-tag">API Support</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+
 
       <Footer />
     </div>
