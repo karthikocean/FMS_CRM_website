@@ -4,6 +4,7 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Navbar.css';
 
+// Responsive spacing configuration for mobile and tablet devices is managed in Navbar.css
 const Navbar = () => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,8 +15,7 @@ const Navbar = () => {
     { name: 'Solutions', link: '/solutions' },
     { name: 'Industries', link: '/industries' },
     { name: 'Features', link: '/features' },
-    { name: 'Resources', link: '#resources' },
-    { name: 'Pricing', link: '#pricing' },
+    { name: 'Pricing', link: '/pricing' },
     { name: 'About Us', link: '/about' },
     { name: 'Contact', link: '/contact' }
   ];
@@ -31,6 +31,18 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className={`navbar-wrapper`}>
@@ -68,18 +80,20 @@ const Navbar = () => {
           {/* Right Side CTAs */}
           <div className="desktop-ctas">
             <a
-              href="#login"
+              href="https://admin.facilitycore.in/login"
+              target="_blank"
               className="btn-login"
             >
               Login
             </a>
             <motion.a
-              href="#demo"
+              href="https://admin.facilitycore.in/register"
+              target="_blank"
               whileHover={{ y: -3, scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="btn-demo"
             >
-              Book Demo
+              Free Trial
             </motion.a>
           </div>
 
@@ -112,24 +126,15 @@ const Navbar = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.35, ease: 'easeOut' }}
+              transition={{ type: 'tween', duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}
               className="mobile-menu-drawer"
             >
-              <div className="drawer-header">
-                <button
-                  className="drawer-close-btn"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <HiX />
-                </button>
-              </div>
               <div className="drawer-content">
                 <nav className="mobile-nav-links">
                   {navItems.map((item, idx) => (
-                    <link
+                    <Link
                       key={idx}
-                      href={item.link}
+                      to={item.link}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`mobile-nav-link ${location.pathname === item.link
                         ? 'mobile-nav-link-active'
@@ -137,24 +142,24 @@ const Navbar = () => {
                         }`}
                     >
                       {item.name}
-                    </link>
+                    </Link>
                   ))}
                 </nav>
                 <div className="drawer-divider" />
                 <div className="mobile-ctas">
                   <a
-                    href="#login"
+                    href="https://admin.facilitycore.in/login"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="mobile-btn-login"
                   >
                     Login
                   </a>
                   <a
-                    href="#demo"
+                    href="https://admin.facilitycore.in/register"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="mobile-btn-demo"
                   >
-                    Book Demo
+                    Free Trial
                   </a>
                 </div>
               </div>
