@@ -1,0 +1,261 @@
+/* Detailed Modules Grid and Section Layout */
+.detailed-modules {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 48px;
+}
+
+.detailed-modules-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.detailed-modules-heading {
+    font-size: 34px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.solutions-split-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 20px;
+    align-items: stretch;
+    margin-top: 0;
+}
+
+/* Compact Enterprise Card Layout */
+.detailed-modules .feature-card {
+    position: relative;
+    min-height: 90px;
+    max-height: 100px;
+    height: 95px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(29, 79, 163, 0.08);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0 24px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.detailed-modules .feature-card:hover {
+    background: #f9fafb;
+    border-color: #1D4FA3;
+    box-shadow: 0 8px 32px rgba(29, 79, 163, 0.10);
+}
+
+.detailed-modules .feature-card.active {
+    border-color: #1D4FA3;
+    background: #f0f5ff;
+}
+
+/* Card Left Section */
+.detailed-modules .card-left {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.detailed-modules .card-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1D4FA3, #69BC45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    transition: background 0.25s ease;
+}
+
+.detailed-modules .feature-card:hover .card-icon {
+    background: linear-gradient(135deg, #69BC45, #1D4FA3);
+}
+
+.detailed-modules .card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    text-align: left;
+}
+
+.detailed-modules .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    line-height: 1.2;
+    transition: color 0.25s ease;
+}
+
+.detailed-modules .feature-card:hover .card-title {
+    color: #1D4FA3;
+}
+
+.detailed-modules .card-description {
+    font-size: 13px;
+    color: #6B7280;
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Arrow Positioning */
+.detailed-modules .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 4px;
+    border-left: none !important;
+    background: transparent !important;
+}
+
+.detailed-modules .card-arrow::before,
+.detailed-modules .card-arrow::after {
+    display: none !important;
+    content: none !important;
+}
+
+.detailed-modules .arrow-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1D4FA3 0%, #69BC45 100%);
+    border: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    box-shadow: 0 8px 20px rgba(29, 79, 163, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
+}
+
+.detailed-modules .arrow-btn svg {
+    transition: transform 0.25s ease;
+}
+
+.detailed-modules .feature-card:hover .arrow-btn {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(29, 79, 163, 0.28);
+}
+
+.detailed-modules .feature-card:hover .arrow-btn svg {
+    transform: translate(2px, -2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .solutions-split-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .detailed-modules {
+        padding: 40px 16px;
+    }
+
+    /* Single-column grid already set by ≤1024px rule */
+
+    /* Card: auto height so a 2-line title doesn't get vertically clipped,
+       but overflow:hidden is REQUIRED to stop text bleeding past card edges. */
+    .detailed-modules .feature-card {
+        height: auto;
+        min-height: 92px;
+        padding: 12px 12px 12px 0px;
+        border-radius: 18px;
+        overflow: hidden;
+        align-items: center;
+    }
+
+    /* Left section: tighter gap, icon never shrinks */
+    .detailed-modules .card-left {
+        gap: 12px;
+        min-width: 0;               /* critical — allows flex children to shrink */
+        flex: 1;
+        align-items: center;
+        overflow: hidden;           /* keeps card-content from pushing card wider */
+    }
+
+    /* Icon: 52×52, never shrinks */
+    .detailed-modules .card-icon {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+        flex-shrink: 0;
+        font-size: 22px;
+    }
+
+    /* Content: flex:1 + min-width:0 + overflow:hidden confines text inside */
+    .detailed-modules .card-content {
+        gap: 2px;
+        flex: 1;
+        min-width: 0;               /* allows the block to shrink below intrinsic width */
+        overflow: hidden;
+    }
+
+    /* Title: 2-line clamp with ellipsis — standard mobile pattern.
+       word-break:break-word prevents single long words from overflowing. */
+    .detailed-modules .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;           /* required for -webkit-line-clamp to work */
+        text-overflow: ellipsis;
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    /* Description: always single line with ellipsis */
+    .detailed-modules .card-description {
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Arrow wrapper: perfectly centred, no extra margins */
+    .detailed-modules .card-arrow {
+        flex-shrink: 0;
+        margin-left: 10px;
+        margin-right: 0;
+        align-self: center;
+    }
+
+    /* Arrow button: 44×44, never shrinks */
+    .detailed-modules .arrow-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        flex-shrink: 0;
+        font-size: 17px;
+    }
+}

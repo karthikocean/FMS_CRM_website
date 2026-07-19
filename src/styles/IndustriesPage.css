@@ -1,0 +1,156 @@
+/* ==========================================================================
+   INDUSTRIES PAGE - DESIGN SYSTEM & OVERRIDES
+   ========================================================================== */
+
+.industries-page {
+    background: #f8fafc;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   SECTION 1 — HERO BANNER
+   ========================================================================== */
+.ind-hero {
+    position: relative;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ind-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('/solutionpageherosection.png') center/cover no-repeat;
+}
+
+.ind-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(8, 20, 43, 0.85),
+            rgba(8, 20, 43, 0.55));
+}
+
+.ind-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 48px;
+    color: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 120px;
+}
+
+.ind-breadcrumb {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.ind-breadcrumb a {
+    color: #69BC45;
+    text-decoration: none;
+}
+
+.ind-badge {
+    display: inline-flex;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, .15);
+    margin-bottom: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.ind-hero-title {
+    font-size: 34px;
+    line-height: 1.1;
+    max-width: 850px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.ind-hero-desc {
+    max-width: 700px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .85);
+    margin-bottom: 40px;
+    margin: 24px auto 0;
+    text-align: center;
+}
+
+.ind-hero-ctas {
+    display: flex;
+    gap: 16px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN RULES FOR HERO
+   ========================================================================== */
+@media(max-width: 768px) {
+    .ind-hero {
+        height: auto;
+        padding: 120px 24px 80px;
+    }
+
+    .ind-hero-title {
+        font-size: 38px;
+    }
+
+    .ind-hero-desc {
+        font-size: 16px;
+    }
+
+    .ind-hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .ind-hero {
+        height: 500px;
+    }
+
+    .ind-hero-container {
+        padding: 0 20px;
+    }
+
+    .ind-hero-content {
+        padding-top: 100px;
+    }
+
+    .ind-hero-title {
+        font-size: 40px;
+    }
+
+    .ind-hero-desc {
+        font-size: 16px;
+    }
+
+    .ind-hero-ctas {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .ind-hero-ctas .btn {
+        width: 100%;
+    }
+}

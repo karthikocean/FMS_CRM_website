@@ -1,0 +1,443 @@
+/* Navbar.css */
+
+/* Prevent wrapping for navigation and buttons */
+.nav-menu li a,
+.nav-btn,
+.nav-cta-btn,
+.nav-link,
+.btn-login,
+.btn-demo {
+  white-space: nowrap;
+}
+
+.navbar-wrapper {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1400px;
+  height: 90px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.4s ease;
+}
+
+/* Scrolled state styling */
+.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  height: 90px;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 70px;
+  width: auto;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-scrolled .logo-img {
+  height: 42px;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+}
+
+.nav-link {
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  text-decoration: none;
+  padding: 10px 0;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-scrolled .nav-link {
+  color: #111827;
+}
+
+/* Hover style */
+.nav-link:hover {
+  color: #69BC45;
+}
+
+.navbar-scrolled .nav-link:hover {
+  color: #69BC45;
+}
+
+/* Animated underline from center */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1D4FA3, #69BC45);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active menu item design */
+.nav-link.nav-link-active {
+  color: #69BC45 !important;
+  font-weight: 700;
+}
+
+.nav-link.nav-link-active::after {
+  width: 100%;
+}
+
+
+/* Desktop CTA Buttons */
+.desktop-ctas {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-ctas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+  color: #111827;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled .btn-login {
+  color: #111827;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn-login:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-scrolled .btn-login:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.btn-demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #1D4FA3, #69BC45);
+  box-shadow: 0 10px 25px rgba(29, 79, 163, 0.25);
+  border: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+
+/* Mobile Toggle Button */
+.mobile-toggle-btn {
+  display: block;
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: #111827;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 110;
+}
+
+.navbar-scrolled .mobile-toggle-btn {
+  color: #111827;
+}
+
+.mobile-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-scrolled .mobile-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+@media (min-width: 1024px) {
+  .mobile-toggle-btn {
+    display: none;
+  }
+}
+
+/* Mobile Menu Backdrop — starts BELOW the navbar so logo is never covered */
+.mobile-menu-backdrop {
+  position: fixed;
+  top: 110px;         
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 110px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+
+.mobile-menu-drawer {
+  position: fixed;
+  top: 110px;         /* start BELOW the floating navbar pill */
+  right: 0;
+  width: 90%;
+  max-width: 360px;
+  height: auto;       /* Changed from fixed height to prevent unnecessary empty height */
+  max-height: calc(100vh - 110px);
+  background: #0E1730;
+  z-index: 950;        /* above backdrop (900) but below navbar (1000) */
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.30);
+  border-radius: 0 0 0 24px;   /* rounded only on bottom-left */
+  overflow: hidden;
+}
+
+/* Tablet (768px–1024px): slightly wider drawer */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mobile-menu-drawer {
+    width: 85%;
+    max-width: 420px;
+  }
+}
+
+.drawer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 0 32px;
+  overflow: hidden;          
+}
+
+.drawer-content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 auto;            
+  overflow-y: auto;          
+  padding-bottom: 0px;        /* Reduced padding-bottom */
+  margin-bottom: 0px;         /* Reduced margin-bottom */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mobile-nav-links::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.mobile-nav-link {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  height: 52px;
+  border-radius: 14px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-nav-link.mobile-nav-link-active {
+  background: linear-gradient(135deg, #1D4FA3, #69BC45);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(29, 79, 163, 0.18);
+}
+
+.drawer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  margin-top: 12px;           /* Reduced top margin (Contact to Divider: 10px-16px) */
+  margin-bottom: 12px;        /* Spacing from Divider to Login: 10px-12px */
+  width: 100%;
+  flex: 0 0 auto;             /* Keep it static and prevent stretching */
+}
+
+.mobile-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;             
+  margin-top: 0px;            /* Reduced margin-top of .mobile-ctas */
+  padding-top: 0;
+  padding-bottom: 16px;
+}
+
+.mobile-btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-btn-login:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-btn-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #1D4FA3, #69BC45);
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(29, 79, 163, 0.25);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-btn-demo:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+   RESPONSIVE SPACING FIXES
+   ========================================================== */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem; 
+  }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+  .navbar-wrapper {
+    width: calc(100% - 24px);
+    top: 12px;
+  }
+  .navbar-container {
+    padding: 0 16px;
+  }
+ 
+  .mobile-menu-drawer {
+    top: 102px;
+    height: auto;
+    max-height: calc(100vh - 102px);
+  }
+  .mobile-menu-backdrop {
+    top: 102px;
+    height: calc(100vh - 102px);
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .navbar-wrapper {
+    width: calc(100% - 16px);
+    top: 8px;
+  }
+  .navbar-container {
+    padding: 0 12px;
+  }
+  /* Drawer + backdrop start below navbar: 8px top + 90px = 98px */
+  .mobile-menu-drawer {
+    top: 98px;
+    height: auto;
+    max-height: calc(100vh - 98px);
+    width: 90%;
+    max-width: none;
+  }
+  .mobile-menu-backdrop {
+    top: 98px;
+    height: calc(100vh - 98px);
+  }
+}
