@@ -230,7 +230,7 @@ export const fmSaasPlans = [
       "Email Support",
       "Basic Analytics"
     ],
-    buttonText: "Sign Up",
+    buttonText: "Free Trial",
     buttonType: "signup",
     buttonLink: "https://admin.facilitycore.in/register",
     moduleIds: [
@@ -258,7 +258,7 @@ export const fmSaasPlans = [
       "Vendor Management",
       "Compliance Tracking"
     ],
-    buttonText: "Sign Up",
+    buttonText: "Free Trial",
     buttonType: "signup",
     buttonLink: "https://admin.facilitycore.in/register",
     moduleIds: [
@@ -287,7 +287,7 @@ export const fmSaasPlans = [
       "Full Module Access",
       "API Integrations"
     ],
-    buttonText: "Sign Up",
+    buttonText: "Free Trial",
     buttonType: "signup",
     buttonLink: "https://admin.facilitycore.in/register",
     moduleIds: [

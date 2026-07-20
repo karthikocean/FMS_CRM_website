@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiClock, FiMapPin, FiSend } from "react-icons/fi";
+import CountryPhoneInputModule from "react-country-phone-input";
+import "react-country-phone-input/lib/style.css";
+import { submitContactForm } from "../api/ContactDetails";
 import "../styles/ContactDetails.css";
+
+const CountryPhoneInput = CountryPhoneInputModule.default || CountryPhoneInputModule;
+
 
 /* ── animation variants ─────────────────────────────────── */
 const fadeUp = {
@@ -49,6 +55,8 @@ const ContactDetails = () => {
     fullName: "",
     email: "",
     phone: "",
+    phoneNo: "",
+    countryCode: "+91",
     company: "",
     subject: "",
     message: "",
@@ -56,6 +64,8 @@ const ContactDetails = () => {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   /* ── helpers ─────────────────────────────────────────── */
   const handleNameChange = (e) => {
@@ -64,9 +74,16 @@ const ContactDetails = () => {
     if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: "" }));
   };
 
-  const handlePhoneChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
-    setForm((prev) => ({ ...prev, phone: value }));
+  const handlePhoneChange = (value, countryData) => {
+    const dialCode = countryData?.dialCode || "91";
+    const localNumber = value.startsWith(dialCode) ? value.slice(dialCode.length) : value;
+
+    setForm((prev) => ({
+      ...prev,
+      phone: value,
+      phoneNo: localNumber,
+      countryCode: `+${dialCode}`
+    }));
     if (errors.phone) setErrors((prev) => ({ ...prev, phone: "" }));
   };
 
@@ -84,8 +101,8 @@ const ContactDetails = () => {
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
-    if (!form.phone.trim() || form.phone.length !== 10) {
-      newErrors.phone = "Phone number must contain exactly 10 digits.";
+    if (!form.phone || form.phone.trim().length < 8) {
+      newErrors.phone = "Please enter a valid phone number.";
     }
     if (!form.message.trim() || form.message.trim().length < 20) {
       newErrors.message = "Message should contain at least 20 characters.";
@@ -93,14 +110,49 @@ const ContactDetails = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    setSubmitted(true);
+
+    setSubmitting(true);
+    setSubmitError("");
+
+    let payloadPhoneNo = form.phoneNo;
+    let payloadCountryCode = form.countryCode;
+
+    // Fallback parsing if phoneNo or countryCode isn't set yet
+    if (!payloadPhoneNo || !payloadCountryCode) {
+      if (form.phone.startsWith("91")) {
+        payloadCountryCode = "+91";
+        payloadPhoneNo = form.phone.slice(2);
+      } else {
+        payloadCountryCode = "+91";
+        payloadPhoneNo = form.phone;
+      }
+    }
+
+    const payload = {
+      fullName: form.fullName,
+      email: form.email,
+      phoneNo: payloadPhoneNo,
+      countryCode: payloadCountryCode,
+      companyName: form.company,
+      subject: form.subject || "",
+      message: form.message,
+    };
+
+    try {
+      await submitContactForm(payload);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError("Failed to send message. Please try again later.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   /* render  */
@@ -227,17 +279,19 @@ const ContactDetails = () => {
                     <label htmlFor="cd-phone" className="cd-label">
                       Phone Number <span className="cd-required">*</span>
                     </label>
-                    <input
-                      id="cd-phone"
-                      type="tel"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      maxLength={10}
-                      className={`cd-input${errors.phone ? " cd-input-error" : ""}`}
-                      placeholder="10-digit number"
+                    <CountryPhoneInput
+                      country="in"
                       value={form.phone}
                       onChange={handlePhoneChange}
-                      autoComplete="tel"
+                      inputProps={{
+                        id: "cd-phone",
+                        name: "phone",
+                        required: true,
+                        autoComplete: "tel",
+                      }}
+                      containerClass="cd-phone-container"
+                      inputClass={`cd-input${errors.phone ? " cd-input-error" : ""}`}
+                      placeholder="Phone number"
                     />
                     {errors.phone && (
                       <span className="cd-error">{errors.phone}</span>
@@ -293,9 +347,14 @@ const ContactDetails = () => {
                 </div>
 
                 {/* Submit */}
-                <button type="submit" className="cd-submit-btn">
+                {submitError && (
+                  <div className="cd-error" style={{ marginBottom: "12px", fontSize: "14px" }}>
+                    {submitError}
+                  </div>
+                )}
+                <button type="submit" className="cd-submit-btn" disabled={submitting}>
                   <FiSend className="cd-submit-icon" />
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </button>
 
               </form>
