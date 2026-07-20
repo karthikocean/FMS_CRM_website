@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FiTag } from "react-icons/fi";
 import { fmSaasPlans, fmModules } from "../data/pricingData";
+import { getFMCompanyPackages, mapApiPlanToUiPlan } from "../api/FMCompanyPackages";
 import "../styles/FMCompanyPackages.css";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -38,7 +39,19 @@ const SaasPricingCard = ({ plan, index }) => {
         }
       }, 100);
     } else {
-      window.open(plan.buttonLink, "_blank", "noopener noreferrer");
+      let targetUrl = plan.buttonLink;
+      if (plan.id) {
+        try {
+          const url = new URL(plan.buttonLink);
+          url.searchParams.set("planId", plan.id);
+          url.searchParams.set("trial", "true");
+          targetUrl = url.toString();
+        } catch (e) {
+          const separator = plan.buttonLink.includes("?") ? "&" : "?";
+          targetUrl = `${plan.buttonLink}${separator}planId=${plan.id}&trial=true`;
+        }
+      }
+      window.open(targetUrl, "_blank", "noopener noreferrer");
     }
   };
 
@@ -175,6 +188,38 @@ const ProductsIncluded = () => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 const FMCompanyPackages = () => {
+  const [plans, setPlans] = useState(fmSaasPlans);
+
+  useEffect(() => {
+    let active = true;
+    const fetchPlans = async () => {
+      try {
+        const response = await getFMCompanyPackages();
+        if (response && response.data && active) {
+          const apiPlans = response.data
+            .filter((plan) => plan.category === "Standard")
+            .sort((a, b) => (a.planPrice || 0) - (b.planPrice || 0))
+            .map(mapApiPlanToUiPlan);
+
+          // Append static "Customize" plan at the end
+          const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
+          if (customizePlan) {
+            apiPlans.push(customizePlan);
+          }
+
+          setPlans(apiPlans);
+        }
+      } catch (error) {
+        console.error("Failed to load plans from API, using static data fallback:", error);
+      }
+    };
+
+    fetchPlans();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section className="fmsp-section" id="fm-companies">
       <div className="fmsp-container">
@@ -199,7 +244,7 @@ const FMCompanyPackages = () => {
 
         {/* Pricing Cards Grid */}
         <div className="fmsp-cards-grid">
-          {fmSaasPlans.map((plan, idx) => (
+          {plans.map((plan, idx) => (
             <SaasPricingCard key={plan.id || idx} plan={plan} index={idx} />
           ))}
         </div>

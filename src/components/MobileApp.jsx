@@ -4,7 +4,7 @@ import { FaApple, FaGooglePlay } from "react-icons/fa";
 import "../styles/MobileApp.css";
 
 // Image path
-const mobileAppImage = "/fcmobileapp.svg";
+const mobileAppImage = "/downloadimg.png";
 
 const MobileApp = () => {
   const features = [

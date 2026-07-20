@@ -114,9 +114,7 @@ const Footer = () => {
                 <FiMapPin className="footer-contact-icon" />
                 <span>
                   FacilityCore <br />
-                  Plot No 8, 2nd Floor,
-                  100 feet Main Road, Tambaram,
-                  Chennai 600073.
+                  Chennai, Tamil Nadu, India
                 </span>
               </li>
             </ul>
