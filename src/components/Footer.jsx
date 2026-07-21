@@ -42,31 +42,31 @@ const Footer = () => {
               <h4 className="footer-heading">COMPANY</h4>
               <ul className="footer-links">
                 <li>
-                  <a href="#about-us" className="footer-link">
+                  <a href="/about" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a href="#solutions" className="footer-link">
+                  <a href="/solutions" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Solutions
                   </a>
                 </li>
                 <li>
-                  <a href="#industries" className="footer-link">
+                  <a href="/industries" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Industries
                   </a>
                 </li>
                 <li>
-                  <a href="#features" className="footer-link">
+                  <a href="/features" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="footer-link">
+                  <a href="/contact" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Contact
                   </a>
