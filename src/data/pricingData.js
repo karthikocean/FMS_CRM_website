@@ -24,6 +24,15 @@ import {
   FiPhoneCall,
   FiServer,
   FiSettings,
+  FiHome,
+  FiVolume2,
+  FiFileText,
+  FiArchive,
+  FiShoppingCart,
+  FiDollarSign,
+  FiCheckSquare,
+  FiDatabase,
+  FiBriefcase,
 } from "react-icons/fi";
 
 // ─── Existing Exports (unchanged) ────────────────────────────────────────────
@@ -338,9 +347,44 @@ export const fmModules = [
     icon: FiBarChart2
   },
   {
+    id: "service",
+    name: "Helpdesk",
+    icon: FiMessageSquare
+  },
+  {
+    id: "helpdesk",
+    name: "Helpdesk",
+    icon: FiMessageSquare
+  },
+  {
     id: "businessSuite",
     name: "Business Suite",
     icon: FiServer
+  },
+  {
+    id: "compliance",
+    name: "Compliance",
+    icon: FiShield
+  },
+  {
+    id: "properties",
+    name: "Properties",
+    icon: FiHome
+  },
+  {
+    id: "announcement",
+    name: "Announcement",
+    icon: FiVolume2
+  },
+  {
+    id: "humanResources",
+    name: "Human Resources",
+    icon: FiUsers
+  },
+  {
+    id: "assetMaintenance",
+    name: "Asset Management",
+    icon: FiBox
   },
   {
     id: "assetManagement",
@@ -358,9 +402,34 @@ export const fmModules = [
     icon: FiZap
   },
   {
-    id: "helpdesk",
-    name: "Helpdesk",
-    icon: FiMessageSquare
+    id: "workplaceServices",
+    name: "Workplace Services",
+    icon: FiBriefcase
+  },
+  {
+    id: "occupants",
+    name: "Occupants",
+    icon: FiUserCheck
+  },
+  {
+    id: "tenantMobileApp",
+    name: "Mobile App",
+    icon: FiSmartphone
+  },
+  {
+    id: "mobileApp",
+    name: "Mobile App",
+    icon: FiSmartphone
+  },
+  {
+    id: "contracts",
+    name: "Contracts & AMC",
+    icon: FiFileText
+  },
+  {
+    id: "vendors",
+    name: "Vendor Management",
+    icon: FiClipboard
   },
   {
     id: "vendorManagement",
@@ -368,14 +437,49 @@ export const fmModules = [
     icon: FiClipboard
   },
   {
-    id: "compliance",
-    name: "Compliance",
-    icon: FiShield
+    id: "inventory",
+    name: "Inventory",
+    icon: FiArchive
+  },
+  {
+    id: "procurement",
+    name: "Procurement",
+    icon: FiShoppingCart
+  },
+  {
+    id: "budgetFinance",
+    name: "Budget & Finance",
+    icon: FiDollarSign
+  },
+  {
+    id: "crm",
+    name: "CRM",
+    icon: FiUsers
+  },
+  {
+    id: "tasks",
+    name: "Task Management",
+    icon: FiCheckSquare
   },
   {
     id: "attendance",
     name: "Attendance",
     icon: FiCalendar
+  },
+  {
+    id: "workflowApprovals",
+    name: "Workflow",
+    icon: FiSettings
+  },
+  {
+    id: "workflow",
+    name: "Workflow",
+    icon: FiSettings
+  },
+  {
+    id: "storage",
+    name: "Storage",
+    icon: FiDatabase
   },
   {
     id: "visitor",
@@ -388,24 +492,9 @@ export const fmModules = [
     icon: FiMapPin
   },
   {
-    id: "crm",
-    name: "CRM",
-    icon: FiUsers
-  },
-  {
     id: "reports",
     name: "Reports",
     icon: FiPieChart
-  },
-  {
-    id: "workflow",
-    name: "Workflow",
-    icon: FiSettings
-  },
-  {
-    id: "mobileApp",
-    name: "Mobile App",
-    icon: FiSmartphone
   },
   {
     id: "notifications",

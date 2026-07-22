@@ -55,10 +55,29 @@ const SaasPricingCard = ({ plan, index }) => {
     }
   };
 
-  // Build module list for this card
-  const cardModules = fmModules.filter((mod) =>
-    plan.moduleIds.includes(mod.id)
-  );
+  // Build module list for this card with deduplication and safe fallback
+  const cardModules = [];
+  const seenNames = new Set();
+
+  (plan.moduleIds || []).forEach((id) => {
+    const matched = fmModules.find((mod) => mod.id === id);
+    if (matched) {
+      if (!seenNames.has(matched.name)) {
+        cardModules.push(matched);
+        seenNames.add(matched.name);
+      }
+    } else {
+      // Dynamic fallback title formatting
+      const formattedName = id
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase())
+        .trim();
+      if (!seenNames.has(formattedName)) {
+        cardModules.push({ id, name: formattedName, icon: FiTag });
+        seenNames.add(formattedName);
+      }
+    }
+  });
 
   return (
     <motion.div
@@ -195,19 +214,29 @@ const FMCompanyPackages = () => {
     const fetchPlans = async () => {
       try {
         const response = await getFMCompanyPackages();
-        if (response && response.data && active) {
-          const apiPlans = response.data
-            .filter((plan) => plan.category === "Standard")
-            .sort((a, b) => (a.planPrice || 0) - (b.planPrice || 0))
-            .map(mapApiPlanToUiPlan);
+        if (active && response) {
+          const rawPlans = Array.isArray(response)
+            ? response
+            : (response.data || response.result || response.packages || []);
 
-          // Append static "Customize" plan at the end
-          const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
-          if (customizePlan) {
-            apiPlans.push(customizePlan);
+          if (Array.isArray(rawPlans) && rawPlans.length > 0) {
+            const apiPlans = rawPlans
+              .slice()
+              .sort((a, b) => {
+                const priceA = a.price ?? a.planPrice ?? 0;
+                const priceB = b.price ?? b.planPrice ?? 0;
+                return priceA - priceB;
+              })
+              .map(mapApiPlanToUiPlan);
+
+            // Append static "Customize" plan at the end
+            const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
+            if (customizePlan) {
+              apiPlans.push(customizePlan);
+            }
+
+            setPlans(apiPlans);
           }
-
-          setPlans(apiPlans);
         }
       } catch (error) {
         console.error("Failed to load plans from API, using static data fallback:", error);

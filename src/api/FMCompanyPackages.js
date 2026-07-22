@@ -8,7 +8,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.i
  */
 export const getFMCompanyPackages = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/package/list`, {
+        const response = await fetch(`${API_BASE_URL}/package/web-list`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -34,99 +34,107 @@ export const getFMCompanyPackages = async () => {
  * @returns {Object} Formatted plan object matching the frontend pricing data structure.
  */
 export const mapApiPlanToUiPlan = (apiPlan) => {
-    const price = apiPlan.planPrice || 0;
-    const discount = apiPlan.discount || 0;
+    const price = apiPlan.price ?? apiPlan.planPrice ?? 0;
+    const discount = apiPlan.discount ?? 0;
+    const discountprice = apiPlan.discountprice ?? apiPlan.discountPrice;
 
     // Format price using Indian Rupee format as required
     const formatPrice = (val) => {
+        if (val === null || val === undefined || isNaN(Number(val))) return "";
         return new Intl.NumberFormat("en-IN", {
             style: "currency",
-            currency: "INR",
+            currency: apiPlan.planCurrency || "INR",
             maximumFractionDigits: 0
         }).format(val);
     };
 
-    const discountedPriceVal = price - (price * (discount / 100));
+    const calculatedDiscountedPrice = price - (price * (discount / 100));
+    const finalDiscountedPrice = discountprice != null ? discountprice : calculatedDiscountedPrice;
 
     // Extract limits and features
-    const limits = apiPlan.limits || {};
-    const feat = apiPlan.features || {};
+    const propertyLimit = apiPlan.propertyLimit || apiPlan.limits?.buildingsAllowed;
+    const assetLimit = apiPlan.assetLimit || apiPlan.limits?.assetLimit;
+    const webUser = apiPlan.webUser ?? apiPlan.limits?.clientUsersIncluded ?? 0;
+    const mobileUser = apiPlan.mobileUser ?? apiPlan.limits?.employeeAppUsersIncluded ?? 0;
+    const supportLevel = apiPlan.support || apiPlan.features?.supportLevel;
+    const dashboardLevel = apiPlan.dashboard || apiPlan.features?.analyticsDashboard;
+
+    const webNum = typeof webUser === "number" ? webUser : (parseInt(webUser, 10) || 0);
+    const mobileNum = typeof mobileUser === "number" ? mobileUser : (parseInt(mobileUser, 10) || 0);
+    const totalUsers = webNum + mobileNum;
 
     // Build key highlights array for frontend UI display
     const featuresList = [];
-    if (limits.buildingsAllowed) {
-        featuresList.push(`${limits.buildingsAllowed} ${limits.buildingsAllowed === 1 ? "Property" : "Properties"}`);
+    if (propertyLimit) {
+        const pNum = parseInt(propertyLimit, 10);
+        featuresList.push(`${propertyLimit} ${pNum === 1 ? "Property" : "Properties"}`);
     }
-    if (limits.assetLimit) {
-        featuresList.push(`${limits.assetLimit} Assets`);
+    if (assetLimit) {
+        featuresList.push(`${assetLimit} Assets`);
     }
-    if (limits.clientUsersIncluded) {
-        featuresList.push(`${limits.clientUsersIncluded} Web Users`);
+    if (webNum > 0) {
+        featuresList.push(`${webNum} Web ${webNum === 1 ? "User" : "Users"}`);
     }
-    if (limits.employeeAppUsersIncluded) {
-        featuresList.push(`${limits.employeeAppUsersIncluded} Mobile Users`);
+    if (mobileNum > 0) {
+        featuresList.push(`${mobileNum} Mobile ${mobileNum === 1 ? "User" : "Users"}`);
     }
-    if (feat.supportLevel) {
-        featuresList.push(`${feat.supportLevel} Support`);
+    if (supportLevel) {
+        featuresList.push(`${supportLevel} Support`);
     }
-    if (feat.analyticsDashboard) {
-        featuresList.push(`${feat.analyticsDashboard} Analytics`);
+    if (dashboardLevel) {
+        featuresList.push(`${dashboardLevel}`);
     }
 
-    // Derive included module list based on modulesConfig flags
+    // Derive included module list based on modulesConfig flags dynamically
     const moduleIds = [];
     const modulesConfig = apiPlan.modulesConfig || {};
 
-    if (modulesConfig.dashboard?.enabled) moduleIds.push("dashboard");
-    if (modulesConfig.businessSuite?.enabled) moduleIds.push("businessSuite");
+    Object.entries(modulesConfig).forEach(([key, config]) => {
+        if (!config) return;
+        // Check top-level enabled flag OR nested subModules flags
+        const isEnabled = config.enabled === true ||
+            (config.subModules && typeof config.subModules === "object" && Object.values(config.subModules).some(val => val === true));
 
-    if (modulesConfig.assetMaintenance?.enabled) {
-        moduleIds.push("assetManagement");
-        if (modulesConfig.assetMaintenance.subModules?.ppmPlanner || feat.ppmModule) {
-            moduleIds.push("preventiveMaintenance");
-        }
-        if (modulesConfig.assetMaintenance.subModules?.reactiveWorkOrder || feat.workOrderModule) {
-            moduleIds.push("reactiveMaintenance");
-        }
-    }
+        if (isEnabled) {
+            moduleIds.push(key);
 
-    if (modulesConfig.vendors?.enabled || feat.vendorManagementModule) moduleIds.push("vendorManagement");
-    if (modulesConfig.compliance?.enabled) moduleIds.push("compliance");
-    if (modulesConfig.attendance?.enabled || feat.attendanceModule) moduleIds.push("attendance");
-
-    if (modulesConfig.workplaceServices?.enabled) {
-        if (modulesConfig.workplaceServices.subModules?.visitor || feat.visitorModule) {
-            moduleIds.push("visitor");
+            // Also map sub-modules / aliases
+            if (key === "assetMaintenance") {
+                moduleIds.push("assetManagement");
+                const sub = config.subModules || {};
+                if (sub.ppmPlanner || sub.routineActivities || apiPlan.features?.ppmModule) {
+                    moduleIds.push("preventiveMaintenance");
+                }
+                if (sub.reactiveWorkOrder || sub.ppmWorkOrder || apiPlan.features?.workOrderModule) {
+                    moduleIds.push("reactiveMaintenance");
+                }
+            }
+            if (key === "workplaceServices") {
+                const sub = config.subModules || {};
+                if (sub.visitor || apiPlan.features?.visitorModule) moduleIds.push("visitor");
+                if (sub.parking) moduleIds.push("parking");
+            }
+            if (key === "service") moduleIds.push("helpdesk");
+            if (key === "vendors") moduleIds.push("vendorManagement");
+            if (key === "tenantMobileApp") moduleIds.push("mobileApp");
+            if (key === "workflowApprovals") moduleIds.push("workflow");
         }
-        if (modulesConfig.workplaceServices.subModules?.parking) {
-            moduleIds.push("parking");
-        }
-    }
-
-    if (modulesConfig.crm?.enabled) moduleIds.push("crm");
-    if (modulesConfig.workflowApprovals?.enabled) moduleIds.push("workflow");
-    if (modulesConfig.tenantMobileApp?.enabled) moduleIds.push("mobileApp");
+    });
 
     // Standard modules that are always present or configured implicitly
-    moduleIds.push("helpdesk", "reports", "notifications");
-
-    const webUsers = limits.clientUsersIncluded || 0;
-    const mobileUsers = limits.employeeAppUsersIncluded || 0;
-    const totalUsers = typeof webUsers === "number" && typeof mobileUsers === "number"
-        ? webUsers + mobileUsers
-        : null;
+    moduleIds.push("reports", "notifications");
 
     const isFree = price === 0 || apiPlan.accessTrial === true;
 
     return {
-        id: apiPlan._id,
-        name: apiPlan.planName,
+        id: apiPlan.planId || apiPlan._id || apiPlan.id,
+        name: apiPlan.planName || apiPlan.name,
         originalPrice: isFree ? "" : formatPrice(price),
         discountPercent: (discount > 0 && !isFree) ? `${discount}% OFF` : null,
-        discountedPrice: isFree ? "Free" : formatPrice(discountedPriceVal),
-        period: isFree ? "" : (apiPlan.planType === "Monthly" ? "/month" : "/year"),
-        users: totalUsers ? `Up to ${totalUsers} Users` : "Custom Users",
-        storage: limits.storageLimit ? `${limits.storageLimit} GB Storage` : "Basic Storage",
+        discountedPrice: isFree ? "Free" : formatPrice(finalDiscountedPrice),
+        period: isFree ? "" : (apiPlan.planType === "Yearly" ? "/year" : "/month"),
+        users: totalUsers > 0 ? `Up to ${totalUsers} Users` : (apiPlan.loginType || "Web + Mobile"),
+        storage: modulesConfig.storage?.limit ? `${modulesConfig.storage.limit} GB Storage` : (apiPlan.limits?.storageLimit ? `${apiPlan.limits.storageLimit} GB Storage` : "5 GB Storage"),
         platform: apiPlan.loginType || "Web + Mobile",
         features: featuresList,
         buttonText: isFree ? "Start Free Trial" : "Free Trial",
