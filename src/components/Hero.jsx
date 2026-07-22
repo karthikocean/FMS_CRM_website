@@ -89,11 +89,11 @@ const Hero = () => {
             </p>
 
             <div className="hero-buttons">
-              <a href="#demo" className="hero-btn-primary">
+              <a href="https://admin.facilitycore.in/register" target="_blank" className="hero-btn-primary">
                 Book Demo
               </a>
 
-              <a href="#solutions" className="hero-btn-secondary">
+              <a href="/solutions" className="hero-btn-secondary">
                 Explore Solutions
               </a>
             </div>

@@ -172,7 +172,7 @@ export const mobileAppData = {
                 "Maintenance Teams",
                 "Senior Leadership"
             ],
-            image: "/adminapp.png"
+            image: "/aboutuspagemobileimg.png"
         },
         {
             id: "employee",
@@ -236,7 +236,7 @@ export const mobileAppData = {
                 "Tenants",
                 "Visitors"
             ],
-            image: "/employeapp.png"
+            image: "/tanentappimgfut.png"
         }
     ]
 };

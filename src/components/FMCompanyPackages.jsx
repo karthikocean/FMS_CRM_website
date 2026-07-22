@@ -27,6 +27,8 @@ const headerVariant = {
 const SaasPricingCard = ({ plan, index }) => {
   const navigate = useNavigate();
   const isCustomize = plan.buttonType === "contact";
+  const [showAllModules, setShowAllModules] = useState(false);
+  const DEFAULT_MODULE_LIMIT = 10;
 
   const handleButtonClick = () => {
     if (isCustomize) {
@@ -55,10 +57,34 @@ const SaasPricingCard = ({ plan, index }) => {
     }
   };
 
-  // Build module list for this card
-  const cardModules = fmModules.filter((mod) =>
-    plan.moduleIds.includes(mod.id)
-  );
+  // Build module list for this card with deduplication and safe fallback
+  const cardModules = [];
+  const seenNames = new Set();
+
+  (plan.moduleIds || []).forEach((id) => {
+    const matched = fmModules.find((mod) => mod.id === id);
+    if (matched) {
+      if (!seenNames.has(matched.name)) {
+        cardModules.push(matched);
+        seenNames.add(matched.name);
+      }
+    } else {
+      // Dynamic fallback title formatting
+      const formattedName = id
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase())
+        .trim();
+      if (!seenNames.has(formattedName)) {
+        cardModules.push({ id, name: formattedName, icon: FiTag });
+        seenNames.add(formattedName);
+      }
+    }
+  });
+
+  const hasMoreModules = cardModules.length > DEFAULT_MODULE_LIMIT;
+  const visibleModules = showAllModules
+    ? cardModules
+    : cardModules.slice(0, DEFAULT_MODULE_LIMIT);
 
   return (
     <motion.div
@@ -118,7 +144,7 @@ const SaasPricingCard = ({ plan, index }) => {
       <div className="fmsp-modules-section">
         <p className="fmsp-modules-label">Modules Included</p>
         <div className="fmsp-modules-grid">
-          {cardModules.map((mod) => {
+          {visibleModules.map((mod) => {
             const IconComponent = mod.icon;
             return (
               <div key={mod.id} className="fmsp-module-chip">
@@ -127,6 +153,19 @@ const SaasPricingCard = ({ plan, index }) => {
               </div>
             );
           })}
+          {hasMoreModules && (
+            <button
+              type="button"
+              className="fmsp-module-chip fmsp-module-toggle-chip"
+              onClick={() => setShowAllModules((prev) => !prev)}
+            >
+              <span className="fmsp-module-chip-name">
+                {showAllModules
+                  ? "Show less"
+                  : `+${cardModules.length - DEFAULT_MODULE_LIMIT} more...`}
+              </span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -195,19 +234,29 @@ const FMCompanyPackages = () => {
     const fetchPlans = async () => {
       try {
         const response = await getFMCompanyPackages();
-        if (response && response.data && active) {
-          const apiPlans = response.data
-            .filter((plan) => plan.category === "Standard")
-            .sort((a, b) => (a.planPrice || 0) - (b.planPrice || 0))
-            .map(mapApiPlanToUiPlan);
+        if (active && response) {
+          const rawPlans = Array.isArray(response)
+            ? response
+            : (response.data || response.result || response.packages || []);
 
-          // Append static "Customize" plan at the end
-          const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
-          if (customizePlan) {
-            apiPlans.push(customizePlan);
+          if (Array.isArray(rawPlans) && rawPlans.length > 0) {
+            const apiPlans = rawPlans
+              .slice()
+              .sort((a, b) => {
+                const priceA = a.price ?? a.planPrice ?? 0;
+                const priceB = b.price ?? b.planPrice ?? 0;
+                return priceA - priceB;
+              })
+              .map(mapApiPlanToUiPlan);
+
+            // Append static "Customize" plan at the end
+            const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
+            if (customizePlan) {
+              apiPlans.push(customizePlan);
+            }
+
+            setPlans(apiPlans);
           }
-
-          setPlans(apiPlans);
         }
       } catch (error) {
         console.error("Failed to load plans from API, using static data fallback:", error);

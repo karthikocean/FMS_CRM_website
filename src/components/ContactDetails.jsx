@@ -30,7 +30,7 @@ const contactBlocks = [
   {
     icon: <FiPhone />,
     title: "Phone Number",
-    lines: ["+91 9361600649"],
+    lines: ["+91 7904070360"],
   },
   {
     icon: <FiMail />,
