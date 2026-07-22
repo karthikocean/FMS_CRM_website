@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaLinkedinIn, FaTwitter, FaFacebookF, FaYoutube } from 'react-icons/fa';
+import { FaLinkedinIn, FaTwitter, FaFacebookF, FaYoutube, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { FiChevronsRight, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
 
 const Footer = () => {
@@ -13,24 +14,42 @@ const Footer = () => {
         <div className="footer-grid">
           {/* Column 1: Brand Info */}
           <div className="footer-left">
-            <a href="#" className="footer-logo-link">
+            <Link to="/" className="footer-logo-link">
               <img src="/Facility_Core_logo.svg" alt="FacilityCore" className="footer-logo" />
-            </a>
+            </Link>
             <p className="footer-description">
               FacilityCore simplifies facility operations through intelligent asset, maintenance, and workforce management.
             </p>
             <div className="footer-socials">
-              <a href="#" aria-label="LinkedIn" className="footer-social-icon">
-                <FaLinkedinIn />
-              </a>
-              <a href="#" aria-label="Twitter" className="footer-social-icon">
-                <FaTwitter />
-              </a>
-              <a href="#" aria-label="Facebook" className="footer-social-icon">
+              <a 
+                href="https://www.facebook.com/profile.php?id=61592424172256" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Facebook" 
+                className="footer-social-icon"
+              >
                 <FaFacebookF />
               </a>
-              <a href="#" aria-label="YouTube" className="footer-social-icon">
-                <FaYoutube />
+              <a 
+                href="https://www.instagram.com/facilitycore_software/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram" 
+                className="footer-social-icon"
+              >
+                <FaInstagram />
+              </a>
+              <a 
+                href="https://wa.me/917904070360" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="WhatsApp" 
+                className="footer-social-icon"
+              >
+                <FaWhatsapp />
+              </a>
+              <a href="#" aria-label="LinkedIn" className="footer-social-icon">
+                <FaLinkedinIn />
               </a>
             </div>
           </div>
@@ -42,34 +61,34 @@ const Footer = () => {
               <h4 className="footer-heading">COMPANY</h4>
               <ul className="footer-links">
                 <li>
-                  <a href="/about" className="footer-link">
+                  <Link to="/about" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/solutions" className="footer-link">
+                  <Link to="/solutions" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Solutions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/industries" className="footer-link">
+                  <Link to="/industries" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Industries
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/features" className="footer-link">
+                  <Link to="/features" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Features
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/contact" className="footer-link">
+                  <Link to="/contact" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -79,16 +98,16 @@ const Footer = () => {
               <h4 className="footer-heading">LEGAL</h4>
               <ul className="footer-links">
                 <li>
-                  <a href="#privacy" className="footer-link">
+                  <Link to="/privacy" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#terms" className="footer-link">
+                  <Link to="/terms" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Terms & Conditions
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -100,14 +119,14 @@ const Footer = () => {
             <ul className="footer-contact-list">
               <li>
                 <FiMail className="footer-contact-icon" />
-                <a href="mailto:sales@facilitycore.com">
+                <a href="mailto:sales@facilitycore.in">
                   sales@facilitycore.in
                 </a>
               </li>
               <li>
                 <FiPhone className="footer-contact-icon" />
-                <a href="tel:+919876543210">
-                  +91 9361600649
+                <a href="tel:+917904070360">
+                  +91 7904070360
                 </a>
               </li>
               <li>
