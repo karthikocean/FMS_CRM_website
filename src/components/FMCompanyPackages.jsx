@@ -27,6 +27,8 @@ const headerVariant = {
 const SaasPricingCard = ({ plan, index }) => {
   const navigate = useNavigate();
   const isCustomize = plan.buttonType === "contact";
+  const [showAllModules, setShowAllModules] = useState(false);
+  const DEFAULT_MODULE_LIMIT = 10;
 
   const handleButtonClick = () => {
     if (isCustomize) {
@@ -78,6 +80,11 @@ const SaasPricingCard = ({ plan, index }) => {
       }
     }
   });
+
+  const hasMoreModules = cardModules.length > DEFAULT_MODULE_LIMIT;
+  const visibleModules = showAllModules
+    ? cardModules
+    : cardModules.slice(0, DEFAULT_MODULE_LIMIT);
 
   return (
     <motion.div
@@ -137,7 +144,7 @@ const SaasPricingCard = ({ plan, index }) => {
       <div className="fmsp-modules-section">
         <p className="fmsp-modules-label">Modules Included</p>
         <div className="fmsp-modules-grid">
-          {cardModules.map((mod) => {
+          {visibleModules.map((mod) => {
             const IconComponent = mod.icon;
             return (
               <div key={mod.id} className="fmsp-module-chip">
@@ -146,6 +153,19 @@ const SaasPricingCard = ({ plan, index }) => {
               </div>
             );
           })}
+          {hasMoreModules && (
+            <button
+              type="button"
+              className="fmsp-module-chip fmsp-module-toggle-chip"
+              onClick={() => setShowAllModules((prev) => !prev)}
+            >
+              <span className="fmsp-module-chip-name">
+                {showAllModules
+                  ? "Show less"
+                  : `+${cardModules.length - DEFAULT_MODULE_LIMIT} more...`}
+              </span>
+            </button>
+          )}
         </div>
       </div>
 

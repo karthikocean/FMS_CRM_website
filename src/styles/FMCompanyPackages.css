@@ -250,6 +250,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-height: 190px;
 }
 
 .fmsp-feature-item {
@@ -321,6 +322,28 @@
     font-weight: 600;
     color: #334155;
     white-space: nowrap;
+}
+
+/* Toggle Chip (+X more... / Show less) */
+.fmsp-module-toggle-chip {
+    background: rgba(29, 79, 163, 0.08);
+    border: 1px dashed rgba(29, 79, 163, 0.3);
+    color: #1D4FA3;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+}
+
+.fmsp-module-toggle-chip:hover {
+    background: rgba(29, 79, 163, 0.16);
+    border-color: #1D4FA3;
+    transform: translateY(-1px);
+}
+
+.fmsp-module-toggle-chip .fmsp-module-chip-name {
+    color: #1D4FA3;
+    font-weight: 700;
 }
 
 /* ─── CTA Button ───────────────────────────────────────────── */
