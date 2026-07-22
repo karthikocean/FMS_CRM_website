@@ -74,12 +74,25 @@
   font-size: 14px;
   color: #94A3B8;
   font-weight: 500;
+  flex-wrap: wrap;
 }
 
 .legal-meta-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+}
+
+.legal-meta-icon {
+  flex-shrink: 0;
+  font-size: 15px;
+  color: #69BC45;
+}
+
+.legal-meta-dot {
+  color: #64748B;
+  font-size: 14px;
 }
 
 /* ─── Main Content Container ───────────────────────────────── */
@@ -224,5 +237,21 @@
   .legal-h2 {
     font-size: 19px;
     margin: 28px 0 12px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .legal-meta {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .legal-meta-dot {
+    display: none;
+  }
+
+  .legal-meta-item {
+    font-size: 13px;
   }
 }

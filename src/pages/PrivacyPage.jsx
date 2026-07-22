@@ -554,11 +554,13 @@ const PrivacyPage = () => {
           <h1 className="legal-title">Privacy Policy</h1>
           <div className="legal-meta">
             <div className="legal-meta-item">
-              <FiCalendar /> Last Updated: July 20, 2026
+              <FiCalendar className="legal-meta-icon" />
+              <span>Last Updated: July 20, 2026</span>
             </div>
-            <span>•</span>
+            <span className="legal-meta-dot">•</span>
             <div className="legal-meta-item">
-              <FiFileText /> Official Document
+              <FiFileText className="legal-meta-icon" />
+              <span>Official Document</span>
             </div>
           </div>
         </div>
