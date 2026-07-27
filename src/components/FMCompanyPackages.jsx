@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FiTag } from "react-icons/fi";
+import { FiTag, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { fmSaasPlans, fmModules } from "../data/pricingData";
 import { getFMCompanyPackages, mapApiPlanToUiPlan } from "../api/FMCompanyPackages";
 import "../styles/FMCompanyPackages.css";
@@ -142,7 +142,27 @@ const SaasPricingCard = ({ plan, index }) => {
 
       {/* Modules Included */}
       <div className="fmsp-modules-section">
-        <p className="fmsp-modules-label">Modules Included</p>
+        <div className="fmsp-modules-header-row">
+          <p className="fmsp-modules-label">Modules Included</p>
+          {hasMoreModules && (
+            <button
+              type="button"
+              className="fmsp-modules-toggle-btn"
+              onClick={() => setShowAllModules((prev) => !prev)}
+            >
+              <span>
+                {showAllModules
+                  ? "Show less"
+                  : `+${cardModules.length - DEFAULT_MODULE_LIMIT} more`}
+              </span>
+              {showAllModules ? (
+                <FiChevronUp className="fmsp-toggle-icon" />
+              ) : (
+                <FiChevronDown className="fmsp-toggle-icon" />
+              )}
+            </button>
+          )}
+        </div>
         <div className="fmsp-modules-grid">
           {visibleModules.map((mod) => {
             const IconComponent = mod.icon;
@@ -153,19 +173,6 @@ const SaasPricingCard = ({ plan, index }) => {
               </div>
             );
           })}
-          {hasMoreModules && (
-            <button
-              type="button"
-              className="fmsp-module-chip fmsp-module-toggle-chip"
-              onClick={() => setShowAllModules((prev) => !prev)}
-            >
-              <span className="fmsp-module-chip-name">
-                {showAllModules
-                  ? "Show less"
-                  : `+${cardModules.length - DEFAULT_MODULE_LIMIT} more...`}
-              </span>
-            </button>
-          )}
         </div>
       </div>
 
