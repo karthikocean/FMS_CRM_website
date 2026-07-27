@@ -63,24 +63,78 @@ export const mapApiPlanToUiPlan = (apiPlan) => {
     const mobileNum = typeof mobileUser === "number" ? mobileUser : (parseInt(mobileUser, 10) || 0);
     const totalUsers = webNum + mobileNum;
 
+    // Determine platform text for header badge
+    let platformText = apiPlan.loginType || "Web & Mobile";
+    if (webNum > 0 && mobileNum > 0) {
+        platformText = "Web & Mobile";
+    } else if (webNum > 0 && mobileNum === 0) {
+        platformText = "Web Only";
+    } else if (mobileNum > 0 && webNum === 0) {
+        platformText = "Mobile Only";
+    }
+
     // Build key highlights array for frontend UI display
     const featuresList = [];
+
+    // 1. Property Limit
     if (propertyLimit) {
         const pNum = parseInt(propertyLimit, 10);
         featuresList.push(`${propertyLimit} ${pNum === 1 ? "Property" : "Properties"}`);
     }
+
+    // 2. Asset Limit
     if (assetLimit) {
-        featuresList.push(`${assetLimit} Assets`);
+        const aNum = parseInt(assetLimit, 10);
+        const formattedAssetLimit = isNaN(aNum) ? assetLimit : aNum.toLocaleString("en-IN");
+        featuresList.push(`${formattedAssetLimit} Assets`);
     }
-    if (webNum > 0) {
+
+    // 3. Web & Mobile Users (COMBINED SINGLE ROW)
+    if (webNum > 0 && mobileNum > 0) {
+        if (webNum === mobileNum) {
+            featuresList.push(`${webNum} Web & Mobile Users (Operation Team)`);
+        } else {
+            featuresList.push(`${webNum} Web & ${mobileNum} Mobile Users (Operation Team)`);
+        }
+    } else if (webNum > 0) {
         featuresList.push(`${webNum} Web ${webNum === 1 ? "User" : "Users"}`);
+    } else if (mobileNum > 0) {
+        featuresList.push(`${mobileNum} Mobile ${mobileNum === 1 ? "User" : "Users"} (Operation Team)`);
     }
-    if (mobileNum > 0) {
-        featuresList.push(`${mobileNum} Mobile ${mobileNum === 1 ? "User" : "Users"}`);
+
+    // 4. Storage Limit
+    const storageLimit = apiPlan.storageLimit || apiPlan.limits?.storageLimit || apiPlan.modulesConfig?.storage?.limit;
+    if (storageLimit) {
+        featuresList.push(`${storageLimit} GB Storage`);
     }
+
+    // 5. Occupants Limit
+    const occupantLimit = apiPlan.occupantLimit || apiPlan.limits?.occupantLimit;
+    if (occupantLimit && occupantLimit !== "0") {
+        const oNum = parseInt(occupantLimit, 10);
+        featuresList.push(isNaN(oNum) ? `${occupantLimit} Occupants` : `${oNum} ${oNum === 1 ? "Occupant" : "Occupants"}`);
+    }
+
+    // 6. Tenant Mobile App Limit
+    const tenantLimit = apiPlan.tenantMobileAppLimit || apiPlan.limits?.tenantMobileAppLimit;
+    if (tenantLimit && tenantLimit !== "0") {
+        const tNum = parseInt(tenantLimit, 10);
+        featuresList.push(isNaN(tNum) ? `${tenantLimit} Tenant App Users` : `${tNum} Tenant App ${tNum === 1 ? "User" : "Users"}`);
+    }
+
+    // 7. Vendor Limit
+    const vendorLimit = apiPlan.vendorLimit || apiPlan.limits?.vendorLimit;
+    if (vendorLimit && vendorLimit !== "0") {
+        const vNum = parseInt(vendorLimit, 10);
+        featuresList.push(isNaN(vNum) ? `${vendorLimit} Vendors` : `${vNum} ${vNum === 1 ? "Vendor" : "Vendors"}`);
+    }
+
+    // 8. Support Level
     if (supportLevel) {
         featuresList.push(`${supportLevel} Support`);
     }
+
+    // 9. Dashboard Level
     if (dashboardLevel) {
         featuresList.push(`${dashboardLevel}`);
     }
@@ -133,9 +187,9 @@ export const mapApiPlanToUiPlan = (apiPlan) => {
         discountPercent: (discount > 0 && !isFree) ? `${discount}% OFF` : null,
         discountedPrice: isFree ? "Free" : formatPrice(finalDiscountedPrice),
         period: isFree ? "" : (apiPlan.planType === "Yearly" ? "/year" : "/month"),
-        users: totalUsers > 0 ? `Up to ${totalUsers} Users` : (apiPlan.loginType || "Web + Mobile"),
-        storage: modulesConfig.storage?.limit ? `${modulesConfig.storage.limit} GB Storage` : (apiPlan.limits?.storageLimit ? `${apiPlan.limits.storageLimit} GB Storage` : "5 GB Storage"),
-        platform: apiPlan.loginType || "Web + Mobile",
+        users: totalUsers > 0 ? `Up to ${totalUsers} Users` : (platformText),
+        storage: storageLimit ? `${storageLimit} GB Storage` : "5 GB Storage",
+        platform: platformText,
         features: featuresList,
         buttonText: isFree ? "Start Free Trial" : "Free Trial",
         buttonType: "signup",

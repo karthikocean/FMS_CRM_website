@@ -281,13 +281,48 @@
     flex-grow: 1;
 }
 
+.fmsp-modules-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
 .fmsp-modules-label {
     font-size: 11px;
     font-weight: 700;
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 0 0 12px 0;
+    margin: 0;
+}
+
+.fmsp-modules-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(29, 79, 163, 0.07);
+    border: 1px solid rgba(29, 79, 163, 0.15);
+    border-radius: 999px;
+    padding: 3px 10px;
+    color: #1D4FA3;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+}
+
+.fmsp-modules-toggle-btn:hover {
+    background: rgba(29, 79, 163, 0.14);
+    border-color: #1D4FA3;
+    transform: translateY(-1px);
+}
+
+.fmsp-toggle-icon {
+    font-size: 12px;
+    color: #1D4FA3;
+    transition: transform 0.2s ease;
 }
 
 .fmsp-modules-grid {
@@ -322,28 +357,6 @@
     font-weight: 600;
     color: #334155;
     white-space: nowrap;
-}
-
-/* Toggle Chip (+X more... / Show less) */
-.fmsp-module-toggle-chip {
-    background: rgba(29, 79, 163, 0.08);
-    border: 1px dashed rgba(29, 79, 163, 0.3);
-    color: #1D4FA3;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    outline: none;
-}
-
-.fmsp-module-toggle-chip:hover {
-    background: rgba(29, 79, 163, 0.16);
-    border-color: #1D4FA3;
-    transform: translateY(-1px);
-}
-
-.fmsp-module-toggle-chip .fmsp-module-chip-name {
-    color: #1D4FA3;
-    font-weight: 700;
 }
 
 /* ─── CTA Button ───────────────────────────────────────────── */
