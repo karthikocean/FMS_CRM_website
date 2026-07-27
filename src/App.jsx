@@ -10,9 +10,19 @@ import PrivacyPage from './pages/PrivacyPage';
 import ScrollToTop from './components/ScrollToTop';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { setupFetchInterceptor, fetchUserLocation } from './services/locationService';
+
+// Initialize global fetch interceptor so all outgoing requests contain user location headers
+setupFetchInterceptor();
 
 function App() {
+  useEffect(() => {
+    // Warm up and cache user location on application startup
+    fetchUserLocation();
+  }, []);
+
   return (
     <BrowserRouter>
 
