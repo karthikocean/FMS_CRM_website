@@ -15,35 +15,35 @@ const Footer = () => {
           {/* Column 1: Brand Info */}
           <div className="footer-left">
             <Link to="/" className="footer-logo-link">
-              <img src="/Facility_Core_logo.svg" alt="FacilityCore" className="footer-logo" />
+              <img src="/fcfotterlogo.png" alt="FacilityCore" className="footer-logo" />
             </Link>
             <p className="footer-description">
               FacilityCore simplifies facility operations through intelligent asset, maintenance, and workforce management.
             </p>
             <div className="footer-socials">
-              <a 
-                href="https://www.facebook.com/profile.php?id=61592424172256" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Facebook" 
+              <a
+                href="https://www.facebook.com/profile.php?id=61592424172256"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
                 className="footer-social-icon"
               >
                 <FaFacebookF />
               </a>
-              <a 
-                href="https://www.instagram.com/facilitycore_software/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Instagram" 
+              <a
+                href="https://www.instagram.com/facilitycore_software/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
                 className="footer-social-icon"
               >
                 <FaInstagram />
               </a>
-              <a 
-                href="https://wa.me/917904070360" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="WhatsApp" 
+              <a
+                href="https://wa.me/917904070360"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
                 className="footer-social-icon"
               >
                 <FaWhatsapp />

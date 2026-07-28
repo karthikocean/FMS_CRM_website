@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiGrid } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { industriesGrid } from "../data/industriesData";
 import "../styles/IndustriesGrid.css";
 
@@ -24,22 +25,66 @@ const IndustriesGrid = () => {
         </div>
 
         <div className="ind-grid">
-          {industriesGrid.map((ind, i) => (
-            <motion.div
-              key={i}
-              className="ind-grid-card"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              <div className="ind-grid-circle">
-                {ind.icon}
-              </div>
-              <h3 className="ind-grid-name">{ind.name}</h3>
-              <p className="ind-grid-desc">{ind.desc}</p>
-            </motion.div>
-          ))}
+          {industriesGrid.map((ind, i) => {
+            const isCommercial = ind.name === "Commercial Real Estate";
+            const isCorporate = ind.name === "Corporate Offices & IT Campuses";
+            const cardInner = (
+              <>
+                <div className="ind-grid-circle">
+                  {ind.icon}
+                </div>
+                <h3 className="ind-grid-name">{ind.name}</h3>
+                <p className="ind-grid-desc">{ind.desc}</p>
+              </>
+            );
+
+            if (isCommercial || isCorporate) {
+              const targetRoute = isCommercial
+                ? "/industries/commercial-real-estate"
+                : "/industries/corporate-offices-it-campuses";
+
+              return (
+                <motion.div
+                  key={i}
+                  className="ind-grid-card ind-grid-card-clickable"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Link
+                    to={targetRoute}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  >
+                    {cardInner}
+                  </Link>
+                </motion.div>
+              );
+            }
+
+            return (
+              <motion.div
+                key={i}
+                className="ind-grid-card"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+              >
+                {cardInner}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

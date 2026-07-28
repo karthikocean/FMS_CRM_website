@@ -1,6 +1,8 @@
 import Home from './pages/Home';
 import SolutionsPage from './pages/SolutionsPage';
 import IndustriesPage from './pages/IndustriesPage';
+import IndustriesDetailsPage from './pages/industriesdetailspage.jsx';
+import CorporateOfficesITCampusesPage from './pages/CorporateOfficesITCampusesPage.jsx';
 import FeaturesPage from './pages/FeaturesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -32,6 +34,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/solutions" element={<SolutionsPage />} />
         <Route path="/industries" element={<IndustriesPage />} />
+        <Route path="/industries/commercial-real-estate" element={<IndustriesDetailsPage />} />
+        <Route path="/industries/corporate-offices-it-campuses" element={<CorporateOfficesITCampusesPage />} />
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/about" element={<AboutPage />} />

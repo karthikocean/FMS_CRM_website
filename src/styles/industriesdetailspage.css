@@ -1,0 +1,843 @@
+/* ==========================================================================
+   COMMERCIAL REAL ESTATE INDUSTRY DETAILS PAGE STYLING
+   Enterprise SaaS Aesthetic & Responsive Layout
+   ========================================================================== */
+
+.ind-details-page {
+    background: #F8FAFC;
+    overflow-x: hidden;
+    color: #1E293B;
+    font-family: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   Section Badges (with 16px-18px React Icons)
+   -------------------------------------------------------------------------- */
+.ind-section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(105, 188, 69, 0.12);
+    border: 1px solid rgba(105, 188, 69, 0.25);
+    color: #69BC45;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.ind-section-badge svg {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 1 — STATS SECTION
+   -------------------------------------------------------------------------- */
+.ind-stats-section {
+    padding: 2.5rem 0;
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ind-stats-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.ind-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.ind-stat-card {
+    background: #F8FAFC;
+    border: 1px solid rgba(29, 79, 163, 0.08);
+    border-radius: 20px;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.02);
+}
+
+.ind-stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(29, 79, 163, 0.09);
+    border-color: rgba(29, 79, 163, 0.25);
+    background: #FFFFFF;
+}
+
+.ind-stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(29, 79, 163, 0.12), rgba(105, 188, 69, 0.18));
+    color: #1D4FA3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ind-stat-card:hover .ind-stat-icon {
+    background: linear-gradient(135deg, #1D4FA3, #69BC45);
+    color: #FFFFFF;
+}
+
+.ind-stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.ind-stat-label {
+    font-size: 13.5px;
+    color: #64748B;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 2 — ENTERPRISE PROPERTY OPERATIONS (DESKTOP EXACT)
+   -------------------------------------------------------------------------- */
+.ind-overview-section {
+    padding: 2.5rem 0;
+    background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%);
+    position: relative;
+}
+
+.ind-overview-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.ind-overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.ind-overview-img-wrapper {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(29, 79, 163, 0.12);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
+    background: #0F172A;
+    height: 520px;
+    width: 100%;
+}
+
+.ind-overview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ind-overview-img-wrapper:hover .ind-overview-img {
+    transform: scale(1.05);
+}
+
+.ind-overview-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.ind-overview-badge-wrapper {
+    margin-bottom: 18px;
+}
+
+.ind-overview-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.25;
+    margin-bottom: 16px;
+}
+
+.ind-overview-subtitle {
+    font-size: 16.5px;
+    color: #1D4FA3;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.ind-overview-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #64748B;
+    margin-bottom: 24px;
+}
+
+.ind-overview-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.ind-overview-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(29, 79, 163, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+}
+
+.ind-overview-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(29, 79, 163, 0.25);
+    box-shadow: 0 14px 28px rgba(29, 79, 163, 0.1);
+}
+
+.ind-overview-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ind-overview-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(29, 79, 163, 0.08);
+    color: #1D4FA3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.ind-overview-card:hover .ind-overview-card-icon {
+    background: #69BC45;
+    color: #FFFFFF;
+    transform: scale(1.08);
+}
+
+.ind-overview-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.ind-overview-card-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #64748B;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 3 — CHALLENGES SOLVED
+   -------------------------------------------------------------------------- */
+.ind-challenges-section {
+    padding: 2.5rem 0;
+    background: #FFFFFF;
+}
+
+.ind-challenges-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.ind-challenges-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.ind-challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.ind-challenge-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    gap: 18px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ind-challenge-card:hover {
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 16px 36px rgba(239, 68, 68, 0.08);
+    transform: translateY(-5px);
+    background: #FFFFFF;
+}
+
+.ind-challenge-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ind-challenge-card:hover .ind-challenge-icon {
+    background: #EF4444;
+    color: #FFFFFF;
+}
+
+.ind-challenge-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 6px;
+}
+
+.ind-challenge-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #64748B;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 4 — CORE CAPABILITIES / MODULES
+   -------------------------------------------------------------------------- */
+.ind-solutions-section {
+    padding: 2.5rem 0;
+    background: #F8FAFC;
+}
+
+.ind-solutions-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.ind-solutions-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.ind-solutions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ind-solution-item {
+    background: #FFFFFF;
+    border: 1px solid rgba(29, 79, 163, 0.08);
+    border-radius: 20px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 24px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.03);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ind-solution-item:hover {
+    border-color: rgba(29, 79, 163, 0.25);
+    box-shadow: 0 16px 36px rgba(29, 79, 163, 0.08);
+    transform: translateY(-4px);
+}
+
+.ind-solution-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #1D4FA3, #69BC45);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.ind-solution-badge-text {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #69BC45;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.ind-solution-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 8px;
+}
+
+.ind-solution-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #64748B;
+    margin-bottom: 16px;
+}
+
+.ind-solution-highlights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.ind-highlight-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.ind-highlight-point svg {
+    color: #69BC45;
+    font-size: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 5 — FEATURE HIGHLIGHTS
+   -------------------------------------------------------------------------- */
+.ind-features-section {
+    padding: 2.5rem 0;
+    background: #FFFFFF;
+}
+
+.ind-features-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.ind-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.ind-feature-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ind-feature-card:hover {
+    background: #FFFFFF;
+    border-color: rgba(29, 79, 163, 0.25);
+    box-shadow: 0 14px 32px rgba(29, 79, 163, 0.08);
+    transform: translateY(-5px);
+}
+
+.ind-feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(29, 79, 163, 0.08);
+    color: #1D4FA3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 14px;
+    transition: all 0.3s ease;
+}
+
+.ind-feature-card:hover .ind-feature-icon {
+    background: linear-gradient(135deg, #1D4FA3, #69BC45);
+    color: #FFFFFF;
+    transform: scale(1.1);
+}
+
+.ind-feature-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 6px;
+}
+
+.ind-feature-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #64748B;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 6 — COMPACT ENTERPRISE CTA
+   -------------------------------------------------------------------------- */
+.ind-cta-section {
+    padding: 2.5rem 0;
+    background: linear-gradient(135deg, #0B132B 0%, #1C2541 50%, #0F172A 100%);
+    position: relative;
+    overflow: hidden;
+    color: #FFFFFF;
+}
+
+.ind-cta-glow-1 {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(105, 188, 69, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.ind-cta-glow-2 {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(29, 79, 163, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.ind-cta-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 48px;
+    position: relative;
+    z-index: 2;
+}
+
+.ind-cta-glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    padding: 32px 36px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ind-cta-rocket-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1D4FA3, #69BC45);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 20px rgba(105, 188, 69, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.ind-cta-glass-card:hover .ind-cta-rocket-badge {
+    transform: scale(1.08);
+}
+
+.ind-cta-title {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.25;
+    color: #FFFFFF;
+    max-width: 720px;
+}
+
+.ind-cta-desc {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    max-width: 660px;
+}
+
+.ind-cta-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.ind-btn-primary {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #69BC45 0%, #5ba83c 100%);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 13px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 24px rgba(105, 188, 69, 0.3);
+}
+
+.ind-btn-primary:hover {
+    background: linear-gradient(135deg, #5ba83c 0%, #4f9633 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(105, 188, 69, 0.45);
+    color: #FFFFFF;
+}
+
+.ind-btn-secondary {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 13px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ind-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN BREAKPOINTS - SPECIFIC TABLET & MOBILE SPACING FIXES
+   -------------------------------------------------------------------------- */
+
+/* Tablet View (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    .ind-stats-section,
+    .ind-overview-section,
+    .ind-challenges-section,
+    .ind-solutions-section,
+    .ind-features-section,
+    .ind-cta-section {
+        padding: 2rem 0;
+    }
+
+    .ind-stats-grid,
+    .ind-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ind-overview-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .ind-overview-content {
+        display: contents;
+    }
+
+    /* Badge -> 10px -> Heading */
+    .ind-overview-badge-wrapper {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    /* Heading -> 10px -> Highlight Text */
+    .ind-overview-title {
+        order: 2;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    /* Highlight Text -> 12px -> Description Paragraph */
+    .ind-overview-subtitle {
+        order: 3;
+        font-size: 15.5px;
+        margin-bottom: 12px;
+    }
+
+    /* Description Paragraph -> 16px -> Image */
+    .ind-overview-body {
+        order: 4;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    /* Image (No top margin, 16px bottom margin -> Feature Cards) */
+    .ind-overview-img-wrapper {
+        order: 5;
+        height: 320px;
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+
+    /* Feature Cards Grid */
+    .ind-overview-cards-grid {
+        order: 6;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+}
+
+/* Mobile View (Below 768px) */
+@media (max-width: 767px) {
+
+    .ind-stats-section,
+    .ind-overview-section,
+    .ind-challenges-section,
+    .ind-solutions-section,
+    .ind-features-section,
+    .ind-cta-section {
+        padding: 1.75rem 0;
+    }
+
+    .ind-stats-container,
+    .ind-overview-container,
+    .ind-challenges-container,
+    .ind-solutions-container,
+    .ind-features-container,
+    .ind-cta-container {
+        padding: 0 16px;
+    }
+
+    .ind-overview-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .ind-overview-content {
+        display: contents;
+    }
+
+    /* Badge -> 8px -> Heading */
+    .ind-overview-badge-wrapper {
+        order: 1;
+        margin-bottom: 8px;
+    }
+
+    /* Heading -> 8px -> Highlight Text */
+    .ind-overview-title {
+        order: 2;
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+
+    /* Highlight Text -> 8px -> Paragraph */
+    .ind-overview-subtitle {
+        order: 3;
+        font-size: 14.5px;
+        margin-bottom: 8px;
+    }
+
+    /* Paragraph -> 14px -> Image */
+    .ind-overview-body {
+        order: 4;
+        font-size: 14px;
+        line-height: 1.65;
+        margin-bottom: 14px;
+    }
+
+    /* Image (Zero top margin, 16px bottom margin -> Feature Cards) */
+    .ind-overview-img-wrapper {
+        order: 5;
+        height: 240px;
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+
+    /* Feature Cards Grid (12px gap) */
+    .ind-overview-cards-grid {
+        order: 6;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .ind-stats-grid,
+    .ind-challenges-grid,
+    .ind-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ind-solution-item {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 14px;
+    }
+
+    .ind-solution-icon-box {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        border-radius: 14px;
+    }
+
+    .ind-solution-highlights {
+        grid-template-columns: 1fr;
+    }
+
+    .ind-cta-glass-card {
+        padding: 24px 18px;
+    }
+
+    .ind-cta-title {
+        font-size: 22px;
+    }
+
+    .ind-cta-desc {
+        font-size: 13.5px;
+        margin-bottom: 16px;
+    }
+
+    .ind-cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .ind-btn-primary,
+    .ind-btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
