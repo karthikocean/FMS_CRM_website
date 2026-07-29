@@ -28,6 +28,20 @@ const IndustriesGrid = () => {
           {industriesGrid.map((ind, i) => {
             const isCommercial = ind.name === "Commercial Real Estate";
             const isCorporate = ind.name === "Corporate Offices & IT Campuses";
+            const isResidential = ind.name === "Residential Communities";
+            const isManufacturing = ind.name === "Manufacturing & Factories";
+            const isWarehouse = ind.name === "Warehouses & Logistics";
+            const isHealthcare = ind.name === "Healthcare";
+            const isEducation = ind.name === "Education";
+            const isRetail = ind.name === "Retail & Shopping Malls";
+            const isAirport = ind.name === "Airports & Transportation";
+            const isUtilities = ind.name === "Utilities & Infrastructure";
+            const isGovernment = ind.name === "Government & Public Sector";
+            const isDataCenter = ind.name === "Data Centers & Critical Facilities";
+            const isSmartCity = ind.name === "Smart Cities";
+            const isIndustrial = ind.name === "Industrial Facilities";
+            const isHospitality = ind.name === "Hospitality & Hotels";
+
             const cardInner = (
               <>
                 <div className="ind-grid-circle">
@@ -38,10 +52,36 @@ const IndustriesGrid = () => {
               </>
             );
 
-            if (isCommercial || isCorporate) {
+            if (isCommercial || isCorporate || isResidential || isManufacturing || isWarehouse || isHealthcare || isEducation || isRetail || isAirport || isUtilities || isGovernment || isDataCenter || isSmartCity || isIndustrial || isHospitality) {
               const targetRoute = isCommercial
                 ? "/industries/commercial-real-estate"
-                : "/industries/corporate-offices-it-campuses";
+                : isCorporate
+                ? "/industries/corporate-offices-it-campuses"
+                : isResidential
+                ? "/industries/residential-communities"
+                : isManufacturing
+                ? "/industries/manufacturing-factories"
+                : isWarehouse
+                ? "/industries/warehouses-logistics"
+                : isHealthcare
+                ? "/industries/healthcare"
+                : isEducation
+                ? "/industries/education"
+                : isRetail
+                ? "/industries/retail-shopping-malls"
+                : isAirport
+                ? "/industries/airports-transportation"
+                : isUtilities
+                ? "/industries/utilities-infrastructure"
+                : isGovernment
+                ? "/industries/government-public-sector"
+                : isDataCenter
+                ? "/industries/data-centers-critical-facilities"
+                : isSmartCity
+                ? "/industries/smart-cities"
+                : isIndustrial
+                ? "/industries/industrial-facilities"
+                : "/industries/hospitality-hotels";
 
               return (
                 <motion.div
