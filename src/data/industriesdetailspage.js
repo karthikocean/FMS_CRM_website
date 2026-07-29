@@ -251,6 +251,14 @@ export const commercialRealEstateData = {
     { name: "Visitor & Access Control Logs", desc: "Enhance property security with digital visitor check-ins and badge tracking.", icon: React.createElement(RiShieldCheckLine) },
     { name: "Executive BI Dashboards", desc: "Gain instant visibility into property portfolio health, total cost of maintenance, and vendor performance.", icon: React.createElement(RiBarChartBoxLine) }
   ],
+  comparisonTable: [
+    { feature: "Tenant Request Tracking", facilityCore: "Automated SLA Ticket Dispatch & Mobile Portal", traditional: "Unorganized Phone Calls & Emails" },
+    { feature: "Preventive Maintenance", facilityCore: "Automated Calendar & Equipment Run-Hour PM", traditional: "Paper Checklists on Clipboard" },
+    { feature: "Visitor & Security Pass", facilityCore: "QR Code Entry & Contactless Pre-Approval", traditional: "Manual Paper Visitor Registers" },
+    { feature: "Building Utility Metering", facilityCore: "Digital Meter Logging & Energy Anomaly Alerts", traditional: "Manual Ledger Entry" },
+    { feature: "Asset Health & History", facilityCore: "QR Asset Tagging & Lifecycle Log", traditional: "Missing Manual Equipment Files" },
+    { feature: "Property Analytics", facilityCore: "Real-Time Executive Operations Dashboard", traditional: "Monthly Manual Excel Spreadsheets" }
+  ],
   cta: {
     icon: React.createElement(RiRocket2Line),
     title: "Elevate Commercial Property Operations Today",

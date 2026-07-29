@@ -3,6 +3,19 @@ import SolutionsPage from './pages/SolutionsPage';
 import IndustriesPage from './pages/IndustriesPage';
 import IndustriesDetailsPage from './pages/industriesdetailspage.jsx';
 import CorporateOfficesITCampusesPage from './pages/CorporateOfficesITCampusesPage.jsx';
+import ResidentialCommunitiesPage from './pages/ResidentialCommunitiesPage.jsx';
+import ManufacturingFactoriesPage from './pages/ManufacturingFactoriesPage.jsx';
+import WarehousesLogisticsPage from './pages/WarehousesLogisticsPage.jsx';
+import HealthcarePage from './pages/HealthcarePage.jsx';
+import EducationPage from './pages/EducationPage.jsx';
+import RetailShoppingMallsPage from './pages/RetailShoppingMallsPage.jsx';
+import AirportsTransportationPage from './pages/AirportsTransportationPage.jsx';
+import UtilitiesInfrastructurePage from './pages/UtilitiesInfrastructurePage.jsx';
+import GovernmentPublicSectorPage from './pages/GovernmentPublicSectorPage.jsx';
+import DataCentersCriticalFacilitiesPage from './pages/DataCentersCriticalFacilitiesPage.jsx';
+import SmartCitiesPage from './pages/SmartCitiesPage.jsx';
+import IndustrialFacilitiesPage from './pages/IndustrialFacilitiesPage.jsx';
+import HospitalityHotelsPage from './pages/HospitalityHotelsPage.jsx';
 import FeaturesPage from './pages/FeaturesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -36,6 +49,19 @@ function App() {
         <Route path="/industries" element={<IndustriesPage />} />
         <Route path="/industries/commercial-real-estate" element={<IndustriesDetailsPage />} />
         <Route path="/industries/corporate-offices-it-campuses" element={<CorporateOfficesITCampusesPage />} />
+        <Route path="/industries/residential-communities" element={<ResidentialCommunitiesPage />} />
+        <Route path="/industries/manufacturing-factories" element={<ManufacturingFactoriesPage />} />
+        <Route path="/industries/warehouses-logistics" element={<WarehousesLogisticsPage />} />
+        <Route path="/industries/healthcare" element={<HealthcarePage />} />
+        <Route path="/industries/education" element={<EducationPage />} />
+        <Route path="/industries/retail-shopping-malls" element={<RetailShoppingMallsPage />} />
+        <Route path="/industries/airports-transportation" element={<AirportsTransportationPage />} />
+        <Route path="/industries/utilities-infrastructure" element={<UtilitiesInfrastructurePage />} />
+        <Route path="/industries/government-public-sector" element={<GovernmentPublicSectorPage />} />
+        <Route path="/industries/data-centers-critical-facilities" element={<DataCentersCriticalFacilitiesPage />} />
+        <Route path="/industries/smart-cities" element={<SmartCitiesPage />} />
+        <Route path="/industries/industrial-facilities" element={<IndustrialFacilitiesPage />} />
+        <Route path="/industries/hospitality-hotels" element={<HospitalityHotelsPage />} />
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/about" element={<AboutPage />} />

@@ -11,7 +11,20 @@ const mainHtmlPath = path.join(distDir, 'index.html');
 
 const routes = [
   'industries/commercial-real-estate',
-  'industries/corporate-offices-it-campuses'
+  'industries/corporate-offices-it-campuses',
+  'industries/residential-communities',
+  'industries/manufacturing-factories',
+  'industries/warehouses-logistics',
+  'industries/healthcare',
+  'industries/education',
+  'industries/retail-shopping-malls',
+  'industries/airports-transportation',
+  'industries/utilities-infrastructure',
+  'industries/government-public-sector',
+  'industries/data-centers-critical-facilities',
+  'industries/smart-cities',
+  'industries/industrial-facilities',
+  'industries/hospitality-hotels'
 ];
 
 if (fs.existsSync(mainHtmlPath)) {

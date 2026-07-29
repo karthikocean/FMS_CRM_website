@@ -296,6 +296,41 @@ const CorporateOfficesITCampusesPage = () => {
         </div>
       </section>
 
+      {/* WHY CHOOSE FACILITYCORE (COMPARISON TABLE) */}
+      {data.comparisonTable && (
+        <section className="ind-challenges-section" style={{ background: "#FFFFFF" }} aria-label="Why Choose FacilityCore">
+          <div className="ind-challenges-container">
+            <div className="ind-challenges-header">
+              <span className="ind-section-badge">
+                <FiCheckCircle /> WHY FACILITYCORE
+              </span>
+              <h2 className="ind-overview-title">FacilityCore vs Traditional Workplace Management</h2>
+            </div>
+
+            <div className="ind-table-wrapper">
+              <table className="ind-custom-table ind-comparison-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: "30%" }}>Capability / Process</th>
+                    <th className="fac-header">FacilityCore Intelligent Platform</th>
+                    <th>Traditional / Manual Management</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.comparisonTable.map((row, i) => (
+                    <tr key={i}>
+                      <td style={{ fontWeight: 600 }}>{row.feature}</td>
+                      <td className="fac-cell">✓ {row.facilityCore}</td>
+                      <td style={{ color: "#94A3B8" }}>✗ {row.traditional}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* COMPACT CONVERSION-FOCUSED ENTERPRISE CTA SECTION */}
       <section className="ind-cta-section" aria-label="Get Started Call to Action">
         <div className="ind-cta-glow-1" aria-hidden="true"></div>

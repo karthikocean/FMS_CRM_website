@@ -362,6 +362,14 @@ export const corporateOfficesData = {
       icon: React.createElement(FiShield)
     }
   ],
+  comparisonTable: [
+    { feature: "Employee Helpdesk", facilityCore: "Mobile Self-Service App & SLA Ticketing", traditional: "WhatsApp / Email Chain Requests" },
+    { feature: "Meeting Room Booking", facilityCore: "Real-time Slot Reservation & Display Sync", traditional: "Double Bookings & Manual Paper Schedule" },
+    { feature: "HVAC & UPS Maintenance", facilityCore: "Automated PPM Checklists & QR History", traditional: "Reactive Repairs after Breakdown" },
+    { feature: "Vendor & AMC Oversight", facilityCore: "Digital SLA Tracking & Performance Scoring", traditional: "Manual Paper Contract Audits" },
+    { feature: "Workplace Safety & Audit", facilityCore: "Audit-Ready EHS Checklists & Digital PTW", traditional: "Scattered Paper Safety Forms" },
+    { feature: "Workplace Analytics", facilityCore: "Live Operational Dashboard & Cost Metrics", traditional: "End-of-Month Excel Reports" }
+  ],
   ctaBadge: "Transform Your Workplace",
   ctaBadgeIcon: React.createElement(HiOutlineRocketLaunch),
   cta: {
