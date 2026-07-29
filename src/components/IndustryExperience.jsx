@@ -48,9 +48,9 @@ const IndustryExperience = () => {
   return (
     <section className="industry-experience-section">
       <div className="container">
-        
+
         {/* Header Block */}
-        <motion.div 
+        <motion.div
           className="industry-header"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ const IndustryExperience = () => {
 
         {/* Industry Grid */}
         <div className="industry-cards-container">
-          <motion.div 
+          <motion.div
             className="industry-grid-main"
             variants={containerVariants}
             initial="hidden"
@@ -94,8 +94,8 @@ const IndustryExperience = () => {
               </motion.div>
             ))}
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             className="industry-grid-centered"
             variants={containerVariants}
             initial="hidden"
