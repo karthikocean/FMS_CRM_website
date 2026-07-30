@@ -1,4 +1,6 @@
 import React from "react";
+import SEO from "../components/SEO";
+import { solutionsSeo } from "../data/mainPagesSeoData";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
@@ -10,6 +12,7 @@ import "../styles/SolutionsPage.css";
 const SolutionsPage = () => {
   return (
     <div className="solutions-page">
+      <SEO {...solutionsSeo} />
       <Navbar />
       <HeroSection
         backgroundImage="/solutionpageherosection.png"

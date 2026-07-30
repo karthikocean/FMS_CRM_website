@@ -16,6 +16,7 @@ const Navbar = () => {
     { name: 'Industries', link: '/industries' },
     { name: 'Features', link: '/features' },
     { name: 'Pricing', link: '/pricing' },
+    { name: 'Blogs', link: '/blogs' },
     { name: 'About Us', link: '/about' },
     { name: 'Contact', link: '/contact' }
   ];
@@ -56,7 +57,12 @@ const Navbar = () => {
           >
             <img
               src="/Facility_Core_logo.svg"
-              alt="FacilityCore"
+              alt="FacilityCore - Smart Facility Management Software"
+              title="FacilityCore Smart Facility Management Software"
+              width="160"
+              height="40"
+              decoding="async"
+              fetchPriority="high"
               className="logo-img"
             />
           </Link>

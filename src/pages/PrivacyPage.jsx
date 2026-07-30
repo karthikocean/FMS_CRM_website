@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiShield, FiCalendar, FiFileText } from "react-icons/fi";
+import SEO from "../components/SEO";
+import { privacySeo } from "../data/mainPagesSeoData";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getPrivacyPolicy } from "../api/Legal";
@@ -543,6 +545,7 @@ const PrivacyPage = () => {
 
   return (
     <div className="legal-page-wrapper">
+      <SEO {...privacySeo} />
       <Navbar />
 
       {/* Hero Header */}

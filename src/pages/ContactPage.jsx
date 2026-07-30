@@ -1,4 +1,6 @@
 import React from 'react';
+import SEO from '../components/SEO';
+import { contactSeo } from '../data/mainPagesSeoData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
@@ -9,7 +11,7 @@ import '../styles/ContactPage.css';
 const ContactPage = () => {
     return (
         <div className="contact-page">
-
+            <SEO {...contactSeo} />
             <Navbar />
 
             <HeroSection

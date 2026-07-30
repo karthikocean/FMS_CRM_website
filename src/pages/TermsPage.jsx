@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiShield, FiCalendar, FiFileText } from "react-icons/fi";
+import SEO from "../components/SEO";
+import { termsSeo } from "../data/mainPagesSeoData";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getTermsAndConditions } from "../api/Legal";
@@ -469,6 +471,7 @@ const TermsPage = () => {
 
   return (
     <div className="legal-page-wrapper">
+      <SEO {...termsSeo} />
       <Navbar />
 
       {/* Hero Header */}

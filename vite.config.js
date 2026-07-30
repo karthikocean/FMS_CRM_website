@@ -1,12 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Fixes "WebSocket closed before onopen" errors
     host: true,
     port: 5173,
   },
-})
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-icons')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-animation';
+            }
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom') || id.includes('react-helmet-async')) {
+              return 'vendor-react';
+            }
+          }
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  }
+});
