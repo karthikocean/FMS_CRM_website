@@ -1,4 +1,6 @@
 import React from "react";
+import SEO from "../components/SEO";
+import { pricingSeo } from "../data/mainPagesSeoData";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
@@ -10,6 +12,7 @@ import "../styles/PricingPage.css";
 const PricingPage = () => {
   return (
     <div className="pricing-page">
+      <SEO {...pricingSeo} />
       <Navbar />
 
       <HeroSection

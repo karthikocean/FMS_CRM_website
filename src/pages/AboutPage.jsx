@@ -1,5 +1,6 @@
 import React from 'react';
-
+import SEO from '../components/SEO';
+import { aboutSeo } from '../data/mainPagesSeoData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
@@ -21,6 +22,7 @@ import '../styles/AboutPage.css';
 const AboutPage = () => {
   return (
     <div className="about-page">
+      <SEO {...aboutSeo} />
       <Navbar />
 
       {/* Reusing existing HeroSection with About context */}

@@ -1,0 +1,10 @@
+# Allow all major search engines and web crawlers
+User-agent: *
+Allow: /
+
+# Disallow administrative dashboard URLs if any
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap Location
+Sitemap: https://facilitycore.in/sitemap.xml

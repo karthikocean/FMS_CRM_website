@@ -22,6 +22,8 @@ import ContactPage from './pages/ContactPage';
 import PricingPage from './pages/PricingPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import BlogsPage from './pages/BlogsPage';
+import BlogDetailsPage from './pages/BlogDetailsPage';
 import ScrollToTop from './components/ScrollToTop';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 
@@ -64,6 +66,8 @@ function App() {
         <Route path="/industries/hospitality-hotels" element={<HospitalityHotelsPage />} />
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/blogs/:slug" element={<BlogDetailsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/terms" element={<TermsPage />} />

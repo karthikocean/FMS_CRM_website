@@ -1,4 +1,6 @@
 import React from 'react';
+import SEO from '../components/SEO';
+import { featuresSeo } from '../data/mainPagesSeoData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
@@ -19,6 +21,7 @@ import '../styles/FeaturesPage.css';
 const FeaturesPage = () => {
   return (
     <div className="features-page">
+      <SEO {...featuresSeo} />
       <Navbar />
 
       <HeroSection

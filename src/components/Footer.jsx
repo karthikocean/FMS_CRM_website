@@ -15,7 +15,14 @@ const Footer = () => {
           {/* Column 1: Brand Info */}
           <div className="footer-left">
             <Link to="/" className="footer-logo-link">
-              <img src="/fcfotterlogo.png" alt="FacilityCore" className="footer-logo" />
+              <img
+                src="/fcfotterlogo.png"
+                alt="FacilityCore Smart Facility Management Software"
+                title="FacilityCore Smart Facility Management Software"
+                loading="lazy"
+                decoding="async"
+                className="footer-logo"
+              />
             </Link>
             <p className="footer-description">
               FacilityCore simplifies facility operations through intelligent asset, maintenance, and workforce management.
@@ -70,6 +77,12 @@ const Footer = () => {
                   <Link to="/solutions" className="footer-link">
                     <FiChevronsRight className="footer-link-icon" />
                     Solutions
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/blogs" className="footer-link">
+                    <FiChevronsRight className="footer-link-icon" />
+                    Blogs & Insights
                   </Link>
                 </li>
                 <li>

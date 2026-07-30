@@ -1,4 +1,6 @@
 import React from "react";
+import SEO from "../components/SEO";
+import { industriesSeo } from "../data/mainPagesSeoData";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
@@ -16,6 +18,7 @@ import "../styles/IndustriesPage.css";
 const IndustriesPage = () => {
   return (
     <div className="industries-page">
+      <SEO {...industriesSeo} />
       <Navbar />
 
       <HeroSection
