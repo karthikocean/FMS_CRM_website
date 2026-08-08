@@ -66,15 +66,9 @@ const BlogDetailsPage = () => {
   return (
     <div className="blogs-page-wrapper">
       <SEO
-        title={`${post.title} | FacilityCore Blog`}
-        description={post.excerpt}
-        keywords={post.tags.join(', ')}
-        canonical={`https://facilitycore.in/blogs/${post.slug}`}
-        ogTitle={post.title}
-        ogDescription={post.excerpt}
-        ogImage={`https://facilitycore.in${post.image}`}
-        ogUrl={`https://facilitycore.in/blogs/${post.slug}`}
-        schemas={[blogPostSchema, breadcrumbSchema]}
+        title="Facility Management Expert Blog Post | FacilityCore"
+        description="Read deep-dive facility management insights, maintenance strategies, software implementation tips, and industry trends on the official FacilityCore blog."
+        keywords="facility management guide, maintenance strategy article, building operations trends"
       />
 
       <Navbar />

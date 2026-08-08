@@ -22,7 +22,11 @@ import '../styles/AboutPage.css';
 const AboutPage = () => {
   return (
     <div className="about-page">
-      <SEO {...aboutSeo} />
+      <SEO
+        title="About Smart Facility Management Software | FacilityCore"
+        description="Learn about FacilityCore's core mission to transform facility management with modern cloud technology, automated maintenance, and data-driven insights."
+        keywords="facility management technology, smart building company, facility software platform"
+      />
       <Navbar />
 
       {/* Reusing existing HeroSection with About context */}

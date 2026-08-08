@@ -45,7 +45,11 @@ const BlogsPage = () => {
 
   return (
     <div className="blogs-page-wrapper">
-      <SEO {...blogsSeo} />
+      <SEO
+        title="Facility Management Insights & Articles | FacilityCore"
+        description="Read articles, expert guides, and industry trends on smart facility management, modern building technology, CMMS strategies, and maintenance operations."
+        keywords="facility management blog, smart building insights, maintenance technology articles"
+      />
       <Navbar />
 
       {/* Header Banner Section */}

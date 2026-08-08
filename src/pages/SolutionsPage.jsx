@@ -12,7 +12,11 @@ import "../styles/SolutionsPage.css";
 const SolutionsPage = () => {
   return (
     <div className="solutions-page">
-      <SEO {...solutionsSeo} />
+      <SEO
+        title="Facility Operations & Asset Maintenance | FacilityCore"
+        description="Discover intelligent FacilityCore solutions for maintenance automation, asset lifecycle tracking, work order management, and building operations control."
+        keywords="maintenance workflow software, asset lifecycle tracking, building operations platform"
+      />
       <Navbar />
       <HeroSection
         backgroundImage="/solutionpageherosection.png"
