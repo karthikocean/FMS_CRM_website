@@ -11,7 +11,11 @@ import '../styles/ContactPage.css';
 const ContactPage = () => {
     return (
         <div className="contact-page">
-            <SEO {...contactSeo} />
+            <SEO
+        title="Contact Us & Request a Product Demo | FacilityCore"
+        description="Get in touch with the FacilityCore team to schedule a personalized demo, inquire about custom enterprise software, or consult facility management experts."
+        keywords="facility management demo, facility software consultation, contact facilitycore team"
+      />
             <Navbar />
 
             <HeroSection

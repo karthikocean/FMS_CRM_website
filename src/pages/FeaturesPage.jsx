@@ -21,7 +21,11 @@ import '../styles/FeaturesPage.css';
 const FeaturesPage = () => {
   return (
     <div className="features-page">
-      <SEO {...featuresSeo} />
+      <SEO
+        title="Work Order & Asset Tracking Software | FacilityCore"
+        description="Explore powerful FacilityCore features including mobile work orders, preventive maintenance scheduling, real-time asset tracking, and custom reporting."
+        keywords="preventive maintenance scheduling, mobile work order app, facility analytics dashboard"
+      />
       <Navbar />
 
       <HeroSection

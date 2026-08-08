@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import SEO from "../components/SEO";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiCheckCircle, FiArrowRight, FiArrowLeft } from "react-icons/fi";
@@ -30,48 +30,11 @@ const IndustriesDetailsPage = () => {
   return (
     <div className="ind-details-page">
       {/* Declarative SEO Metadata via React Helmet Async */}
-      <Helmet>
-        {/* Title */}
-        <title>Commercial Real Estate Facility Management Software | FacilityCore</title>
-
-        {/* Standard Metadata */}
-        <meta
-          name="description"
-          content="Manage commercial buildings, office towers, retail spaces, and mixed-use properties with FacilityCore's smart facility management software. Automate maintenance, asset management, inspections, visitors, vendors, and compliance."
-        />
-        <meta
-          name="keywords"
-          content="Commercial Real Estate Facility Management Software, Commercial Property Management Software, Building Maintenance Software, Commercial Building Management System, Facility Management Software India, Commercial Asset Management Software, Property Maintenance Software, CMMS for Commercial Buildings, CAFM Software, Commercial Property Operations, Tenant Management Software, Visitor Management System, Vendor Management, Preventive Maintenance, Work Order Management, Asset Tracking Software, Compliance Management, Building Operations Platform"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://facilitycore.in/industries/commercial-real-estate" />
-
-        {/* Open Graph Tags */}
-        <meta property="og:title" content="Commercial Real Estate Facility Management Software | FacilityCore" />
-        <meta
-          property="og:description"
-          content="Manage commercial buildings, office towers, retail spaces, and mixed-use properties with FacilityCore's smart facility management software. Automate maintenance, asset management, inspections, visitors, vendors, and compliance."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://facilitycore.in/industries/commercial-real-estate" />
-        <meta property="og:image" content="https://facilitycore.in/CommercialBuildingimg.png" />
-
-        {/* Twitter Card Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Commercial Real Estate Facility Management Software | FacilityCore" />
-        <meta
-          name="twitter:description"
-          content="Manage commercial buildings, office towers, retail spaces, and mixed-use properties with FacilityCore's smart facility management software. Automate maintenance, asset management, inspections, visitors, vendors, and compliance."
-        />
-        <meta name="twitter:image" content="https://facilitycore.in/CommercialBuildingimg.png" />
-
-        {/* JSON-LD Schemas (WebPage, BreadcrumbList, SoftwareApplication, FAQPage, Organization) */}
-        {seoData.schemas.map((schema, index) => (
-          <script key={index} type="application/ld+json">
-            {JSON.stringify(schema)}
-          </script>
-        ))}
-      </Helmet>
+      <SEO
+        title="Commercial Real Estate Property Care | FacilityCore"
+        description="Manage commercial buildings, office towers, and mixed-use properties with FacilityCore software for tenant requests, asset care, and vendor maintenance."
+        keywords="commercial real estate cafm, office tower maintenance, property asset tracking"
+      />
 
       <Navbar />
 

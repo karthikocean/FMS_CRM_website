@@ -471,7 +471,11 @@ const TermsPage = () => {
 
   return (
     <div className="legal-page-wrapper">
-      <SEO {...termsSeo} />
+      <SEO
+        title="Terms & Conditions of Service License | FacilityCore"
+        description="Review the official Terms & Conditions governing your use of FacilityCore software services, subscription agreements, and user compliance requirements."
+        keywords="facilitycore terms of service, software subscription conditions, platform user agreement"
+      />
       <Navbar />
 
       {/* Hero Header */}

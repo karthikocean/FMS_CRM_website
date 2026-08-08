@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import SEO from "../components/SEO";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -43,33 +43,11 @@ const ManufacturingFactoriesPage = () => {
   return (
     <div className="ind-details-page">
       {/* Declarative SEO Metadata via React Helmet Async */}
-      <Helmet>
-        <title>{seoData.metaTitle}</title>
-        <meta name="description" content={seoData.metaDescription} />
-        <meta name="keywords" content={seoData.metaKeywords} />
-        <meta name="robots" content={seoData.robots} />
-        <link rel="canonical" href={seoData.canonical} />
-
-        {/* Open Graph Tags */}
-        <meta property="og:title" content={seoData.ogTitle} />
-        <meta property="og:description" content={seoData.ogDescription} />
-        <meta property="og:type" content={seoData.ogType} />
-        <meta property="og:url" content={seoData.ogUrl} />
-        <meta property="og:image" content={seoData.ogImage} />
-
-        {/* Twitter Card Tags */}
-        <meta name="twitter:card" content={seoData.twitterCard} />
-        <meta name="twitter:title" content={seoData.twitterTitle} />
-        <meta name="twitter:description" content={seoData.twitterDescription} />
-        <meta name="twitter:image" content={seoData.twitterImage} />
-
-        {/* JSON-LD Schemas (WebPage, BreadcrumbList, Organization, SoftwareApplication, FAQPage) */}
-        {seoData.schemas.map((schema, index) => (
-          <script key={index} type="application/ld+json">
-            {JSON.stringify(schema)}
-          </script>
-        ))}
-      </Helmet>
+      <SEO
+        title="Manufacturing Plant & Factory Operations | FacilityCore"
+        description="Maximize production line efficiency in manufacturing plants using FacilityCore software for machinery maintenance, spare parts, and technician scheduling."
+        keywords="factory maintenance management, manufacturing plant cafm, machinery servicing app"
+      />
 
       <Navbar />
 

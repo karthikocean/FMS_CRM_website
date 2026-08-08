@@ -12,7 +12,11 @@ import "../styles/PricingPage.css";
 const PricingPage = () => {
   return (
     <div className="pricing-page">
-      <SEO {...pricingSeo} />
+      <SEO
+        title="Facility Management Software Pricing | FacilityCore"
+        description="Explore transparent pricing plans for FacilityCore software. Compare scalable facility management packages designed for teams and enterprises of all sizes."
+        keywords="facility software pricing, cmms subscription plans, cafm software cost"
+      />
       <Navbar />
 
       <HeroSection

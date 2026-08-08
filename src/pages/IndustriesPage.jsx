@@ -18,7 +18,11 @@ import "../styles/IndustriesPage.css";
 const IndustriesPage = () => {
   return (
     <div className="industries-page">
-      <SEO {...industriesSeo} />
+      <SEO
+        title="Industry Facility Management Software | FacilityCore"
+        description="FacilityCore provides industry-specific facility management software for commercial offices, healthcare, manufacturing, education, and public infrastructure."
+        keywords="industry facility solutions, specialized maintenance software, multi-sector cafm software"
+      />
       <Navbar />
 
       <HeroSection

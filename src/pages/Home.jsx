@@ -15,7 +15,11 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-brand-bg text-brand-dark flex flex-col font-sans overflow-x-hidden">
       {/* Declarative Dynamic SEO */}
-      <SEO {...homeSeo} />
+      <SEO
+        title="Smart Facility Management Software & CMMS | FacilityCore"
+        description="FacilityCore is an enterprise facility management software and CMMS platform to automate maintenance workflows, track assets, and optimize operations."
+        keywords="facility management platform, cmms maintenance software, smart facility operations"
+      />
 
       {/* Sticky Navigation Header */}
       <Navbar />

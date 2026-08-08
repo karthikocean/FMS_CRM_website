@@ -545,7 +545,11 @@ const PrivacyPage = () => {
 
   return (
     <div className="legal-page-wrapper">
-      <SEO {...privacySeo} />
+      <SEO
+        title="Privacy Policy & Data Security Terms | FacilityCore"
+        description="Read the official FacilityCore Privacy Policy to learn how we handle personal information, protect customer data, and maintain strict security standards."
+        keywords="facilitycore privacy policy, platform data security, user privacy compliance"
+      />
       <Navbar />
 
       {/* Hero Header */}
