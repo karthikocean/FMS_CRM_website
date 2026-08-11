@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getSeoDataForPath } from '../data/routeSeoData';
 
 const SEO = ({
   title,
@@ -10,12 +12,29 @@ const SEO = ({
   ogImage,
   ogUrl
 }) => {
+  let location;
+  try {
+    location = useLocation();
+  } catch (e) {
+    location = { pathname: typeof window !== 'undefined' ? window.location.pathname : '' };
+  }
+
   useEffect(() => {
-    if (title) {
-      document.title = title;
+    const routeSeo = getSeoDataForPath(location.pathname);
+
+    const finalTitle = routeSeo?.title || title;
+    const finalDescription = routeSeo?.description || description;
+    const finalKeywords = routeSeo?.keywords || keywords;
+    const finalCanonical = routeSeo?.canonical || canonical;
+    const finalOgTitle = routeSeo?.title || ogTitle || finalTitle;
+    const finalOgDescription = routeSeo?.description || ogDescription || finalDescription;
+    const finalOgImage = routeSeo?.image || ogImage;
+
+    if (finalTitle) {
+      document.title = finalTitle;
     }
 
-    if (description) {
+    if (finalDescription) {
       let descriptionTag = document.querySelector(
         'meta[name="description"]'
       );
@@ -26,10 +45,10 @@ const SEO = ({
         document.head.appendChild(descriptionTag);
       }
 
-      descriptionTag.setAttribute('content', description);
+      descriptionTag.setAttribute('content', finalDescription);
     }
 
-    if (keywords) {
+    if (finalKeywords) {
       let keywordsTag = document.querySelector(
         'meta[name="keywords"]'
       );
@@ -40,10 +59,10 @@ const SEO = ({
         document.head.appendChild(keywordsTag);
       }
 
-      keywordsTag.setAttribute('content', keywords);
+      keywordsTag.setAttribute('content', finalKeywords);
     }
 
-    if (ogTitle || title) {
+    if (finalOgTitle) {
       const ogTitleTag = document.querySelector(
         'meta[property="og:title"]'
       );
@@ -51,12 +70,12 @@ const SEO = ({
       if (ogTitleTag) {
         ogTitleTag.setAttribute(
           'content',
-          ogTitle || title
+          finalOgTitle
         );
       }
     }
 
-    if (ogDescription || description) {
+    if (finalOgDescription) {
       const ogDescriptionTag = document.querySelector(
         'meta[property="og:description"]'
       );
@@ -64,21 +83,39 @@ const SEO = ({
       if (ogDescriptionTag) {
         ogDescriptionTag.setAttribute(
           'content',
-          ogDescription || description
+          finalOgDescription
         );
       }
     }
 
-    if (canonical) {
-      const canonicalTag = document.querySelector(
+    if (finalOgImage) {
+      const ogImageTag = document.querySelector(
+        'meta[property="og:image"]'
+      );
+
+      if (ogImageTag) {
+        ogImageTag.setAttribute(
+          'content',
+          finalOgImage
+        );
+      }
+    }
+
+    if (finalCanonical) {
+      let canonicalTag = document.querySelector(
         'link[rel="canonical"]'
       );
 
-      if (canonicalTag) {
-        canonicalTag.setAttribute('href', canonical);
+      if (!canonicalTag) {
+        canonicalTag = document.createElement('link');
+        canonicalTag.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalTag);
       }
+
+      canonicalTag.setAttribute('href', finalCanonical);
     }
   }, [
+    location.pathname,
     title,
     description,
     keywords,
