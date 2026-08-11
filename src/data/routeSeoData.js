@@ -208,3 +208,104 @@ export const routeSeoMap = {
     image: 'https://facilitycore.in/CommercialBuildingimg.png'
   }
 };
+
+export const getSeoDataForPath = (pathname = '') => {
+  if (!pathname && typeof window !== 'undefined') {
+    pathname = window.location.pathname;
+  }
+  const cleanPath = (pathname || '').replace(/^\/+|\/+$/g, '');
+  if (routeSeoMap[cleanPath]) return routeSeoMap[cleanPath];
+  if (routeSeoMap[pathname]) return routeSeoMap[pathname];
+  if (cleanPath.startsWith('blogs/')) return routeSeoMap['blogs/sample'] || routeSeoMap['blogs'];
+  return routeSeoMap[''] || null;
+};
+
+export const applyRouteSeo = (pathname = '') => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  const seoData = getSeoDataForPath(pathname);
+  if (!seoData) return;
+
+  if (seoData.title) {
+    document.title = seoData.title;
+  }
+
+  if (seoData.description) {
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', seoData.description);
+  }
+
+  if (seoData.keywords) {
+    let metaKw = document.querySelector('meta[name="keywords"]');
+    if (!metaKw) {
+      metaKw = document.createElement('meta');
+      metaKw.setAttribute('name', 'keywords');
+      document.head.appendChild(metaKw);
+    }
+    metaKw.setAttribute('content', seoData.keywords);
+  }
+
+  if (seoData.canonical) {
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', seoData.canonical);
+  }
+
+  if (seoData.title) {
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', seoData.title);
+  }
+
+  if (seoData.description) {
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', seoData.description);
+  }
+
+  if (seoData.image) {
+    let ogImg = document.querySelector('meta[property="og:image"]');
+    if (ogImg) ogImg.setAttribute('content', seoData.image);
+  }
+};
+
+// Global route listener to sync head SEO automatically across client navigations
+if (typeof window !== 'undefined') {
+  const syncSeo = () => {
+    applyRouteSeo(window.location.pathname);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncSeo);
+  } else {
+    syncSeo();
+  }
+
+  window.addEventListener('popstate', syncSeo);
+
+  const origPushState = window.history.pushState;
+  if (origPushState && !window.__seoPushStatePatched) {
+    window.history.pushState = function (...args) {
+      origPushState.apply(this, args);
+      syncSeo();
+    };
+    window.__seoPushStatePatched = true;
+  }
+
+  const origReplaceState = window.history.replaceState;
+  if (origReplaceState && !window.__seoReplaceStatePatched) {
+    window.history.replaceState = function (...args) {
+      origReplaceState.apply(this, args);
+      syncSeo();
+    };
+    window.__seoReplaceStatePatched = true;
+  }
+}
+

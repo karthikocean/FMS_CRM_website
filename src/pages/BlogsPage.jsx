@@ -21,6 +21,8 @@ import {
 import SEO from '../components/SEO';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import HeroSection from '../components/HeroSection';
+import { routeSeoMap } from '../data/routeSeoData';
 import { getWebsiteBlogs, mapApiBlogToUiBlog } from '../api/Blogs';
 import '../styles/BlogsPage.css';
 
@@ -174,9 +176,6 @@ const SpotlightBlogCard = ({ post, idx }) => {
 const BlogsPage = () => {
   const [blogsList, setBlogsList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [sortBy, setSortBy] = useState('newest'); // 'newest' | 'oldest'
 
   useEffect(() => {
     let isMounted = true;
@@ -214,155 +213,30 @@ const BlogsPage = () => {
     };
   }, []);
 
-  // Compute available categories with article counts dynamically from API results
-  const categoryStats = useMemo(() => {
-    const counts = { All: blogsList.length };
-    blogsList.forEach((post) => {
-      if (post.category) {
-        counts[post.category] = (counts[post.category] || 0) + 1;
-      }
-    });
-    return counts;
-  }, [blogsList]);
-
-  const categories = useMemo(() => {
-    return Object.keys(categoryStats);
-  }, [categoryStats]);
-
-  // Filter & sort posts by category, search query, and date
-  const filteredPosts = useMemo(() => {
-    let result = blogsList.filter((post) => {
-      const matchesCategory =
-        selectedCategory === 'All' || post.category === selectedCategory;
-      const matchesSearch =
-        !searchQuery ||
-        (post.title || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (post.excerpt || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (Array.isArray(post.tags) && post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())));
-
-      return matchesCategory && matchesSearch;
-    });
-
-    // Sorting
-    if (sortBy === 'oldest') {
-      result = [...result].reverse();
-    }
-
-    return result;
-  }, [blogsList, searchQuery, selectedCategory, sortBy]);
-
   return (
     <div className="blogs-page-wrapper">
       <SEO
-        title="Facility Management Insights & Knowledge Hub | FacilityCore"
-        description="Explore the latest insights, expert guides, and technology trends in smart facility operations, CMMS, CAFM, IoT automation, and enterprise building maintenance."
-        keywords="facility management blog, CMMS insights, CAFM software, smart building technology, predictive maintenance"
+        title={routeSeoMap.blogs?.title}
+        description={routeSeoMap.blogs?.description}
+        keywords={routeSeoMap.blogs?.keywords}
+        canonical={routeSeoMap.blogs?.canonical}
+        ogImage={routeSeoMap.blogs?.image}
       />
       <Navbar />
 
-      {/* Modern Animated Hero Banner */}
-      <section className="blogs-header-section" aria-label="Blog Header">
-        <div className="blogs-header-mesh" aria-hidden="true"></div>
-        
-        {/* Floating Ambient Glowing Orbs */}
-        <motion.div 
-          animate={{ 
-            y: [0, -25, 0],
-            x: [0, 15, 0],
-            scale: [1, 1.08, 1]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="blogs-header-glow blogs-glow-1" 
-          aria-hidden="true" 
-        />
-        <motion.div 
-          animate={{ 
-            y: [0, 20, 0],
-            x: [0, -20, 0],
-            scale: [1, 1.12, 1]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          className="blogs-header-glow blogs-glow-2" 
-          aria-hidden="true" 
-        />
-
-        <div className="blogs-header-container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="blogs-hero-content"
-          >
-            {/* Pulsing Animated Brand Badge */}
-            <motion.div 
-              whileHover={{ scale: 1.04 }}
-              className="blogs-badge"
-            >
-              <span className="blogs-badge-dot"></span>
-              <FiBookOpen className="w-3.5 h-3.5 text-blue-400" />
-              <span>FACILITYCORE KNOWLEDGE HUB</span>
-            </motion.div>
-
-            <h1 className="blogs-title">
-              Smart Facility Operations <br className="hidden md:block" />
-              <span className="blogs-title-highlight">& Modern Building Technology</span>
-            </h1>
-
-            <p className="blogs-subtitle">
-              Actionable insights, maintenance strategy guides, and technology analysis for modern facility managers and enterprise property leaders.
-            </p>
-
-            {/* Feature Stat Highlight Badges */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="blogs-hero-features"
-            >
-              <div className="blogs-hero-feature-item">
-                <FiZap className="text-amber-400" />
-                <span>Zero-Downtime Guides</span>
-              </div>
-              <div className="blogs-hero-feature-item">
-                <FiShield className="text-emerald-400" />
-                <span>Compliance Ready</span>
-              </div>
-              <div className="blogs-hero-feature-item">
-                <FiTrendingUp className="text-cyan-400" />
-                <span>Smart IoT Trends</span>
-              </div>
-            </motion.div>
-
-            {/* Instant Search Bar */}
-            <div className="blogs-search-wrapper">
-              <div className="blogs-search-inner">
-                <FiSearch className="blogs-search-icon" aria-hidden="true" />
-                <input
-                  type="text"
-                  className="blogs-search-input"
-                  placeholder="Search articles by keyword, topic, or tag..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  aria-label="Search blog articles"
-                />
-                {searchQuery && (
-                  <button 
-                    onClick={() => setSearchQuery('')}
-                    className="blogs-search-clear-btn"
-                    aria-label="Clear search"
-                  >
-                    <FiX />
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection
+        title="Smart Facility Operations & Modern Building Technology"
+        description="Actionable insights, maintenance strategy guides, and technology analysis for modern facility managers and enterprise property leaders."
+        badge="FACILITYCORE KNOWLEDGE HUB"
+        breadcrumbItems={[
+          { label: "Home", link: "/" },
+          { label: "Blogs" }
+        ]}
+        backgroundImage={routeSeoMap.blogs?.image || "/homepageherosection2img.png"}
+      />
 
       {/* Main Content Area */}
       <main className="blogs-content-container">
-
         {/* Loading State with Modern Shimmer Skeletons */}
         {loading ? (
           <div className="blogs-grid">
@@ -395,100 +269,24 @@ const BlogsPage = () => {
             </p>
           </motion.div>
         ) : (
-          <>
-            {/* Category Filter Navigation Bar with Sliding Animated Pill */}
-            <div className="blogs-filter-header">
-              <div className="blogs-category-bar" role="tablist" aria-label="Blog Categories">
-                {categories.map((cat) => {
-                  const isActive = selectedCategory === cat;
-                  return (
-                    <button
-                      key={cat}
-                      className={`blogs-category-pill ${isActive ? 'active' : ''}`}
-                      onClick={() => setSelectedCategory(cat)}
-                      role="tab"
-                      aria-selected={isActive}
-                    >
-                      {/* Animated sliding background pill */}
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeCategoryPill"
-                          className="blogs-category-active-bg"
-                          transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                        />
-                      )}
-                      <span className="relative z-10">{cat}</span>
-                      <span className={`blogs-category-count relative z-10 ${isActive ? 'active' : ''}`}>
-                        {categoryStats[cat] || 0}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Controls bar: Results counter & Sort toggle */}
-              <div className="blogs-filter-controls">
-                <div className="blogs-results-count">
-                  Showing <strong>{filteredPosts.length}</strong> {filteredPosts.length === 1 ? 'article' : 'articles'}
-                </div>
-
-                <div className="blogs-sort-wrapper">
-                  <FiSliders className="w-3.5 h-3.5 text-slate-400" />
-                  <select 
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="blogs-sort-select"
-                    aria-label="Sort articles"
-                  >
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Articles Grid with Framer Motion Layout animations */}
-            {filteredPosts.length > 0 ? (
-              <motion.div
-                layout
-                className="blogs-grid"
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-              >
-                <AnimatePresence>
-                  {filteredPosts.map((post, idx) => (
-                    <SpotlightBlogCard 
-                      key={post.id || post._id || `post-${idx}`} 
-                      post={post} 
-                      idx={idx} 
-                    />
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-            ) : (
-              /* No Results for Search/Filter */
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="blogs-no-results-card"
-              >
-                <div className="blogs-no-results-icon">
-                  <FiSearch className="w-7 h-7 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">No matching articles found</h3>
-                <p className="text-slate-500 text-sm max-w-md mb-6">
-                  We couldn't find any articles matching "{searchQuery}". Try searching for other keywords like CMMS, IoT, energy, or maintenance.
-                </p>
-                <button
-                  className="blogs-reset-btn"
-                  onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
-                >
-                  Reset Search & Filters
-                </button>
-              </motion.div>
-            )}
-          </>
+          /* Articles Grid */
+          <motion.div
+            layout
+            className="blogs-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <AnimatePresence>
+              {blogsList.map((post, idx) => (
+                <SpotlightBlogCard 
+                  key={post.id || post._id || `post-${idx}`} 
+                  post={post} 
+                  idx={idx} 
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         )}
 
         {/* Newsletter & Free Demo Banner with Animated Glow */}
