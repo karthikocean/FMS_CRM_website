@@ -17,6 +17,7 @@ import {
 import SEO from '../components/SEO';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import DOMPurify from 'dompurify';
 import { getWebsiteBlogs, getWebsiteBlogDetails, mapApiBlogToUiBlog } from '../api/Blogs';
 import '../styles/BlogsPage.css';
 
@@ -262,7 +263,12 @@ const BlogDetailsPage = () => {
             {/* Rich HTML Content Body */}
             <div
               className="blog-detail-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(post.content || '', {
+                  ADD_TAGS: ['iframe'],
+                  ADD_ATTR: ['target', 'style', 'class', 'type', 'start', 'allowfullscreen', 'frameborder'],
+                }),
+              }}
             />
 
             {/* Article Tags */}
