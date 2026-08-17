@@ -129,6 +129,7 @@
 .blogs-title-highlight {
   background: linear-gradient(135deg, #60A5FA 0%, #38BDF8 50%, #A5B4FC 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
@@ -555,6 +556,7 @@
   transition: color 0.2s ease;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -570,6 +572,7 @@
   margin-bottom: 24px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1053,66 +1056,483 @@
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 40px;
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
   border: 1px solid #E2E8F0;
+  background: #FFFFFF;
 }
 
 .blog-detail-hero-img {
   width: 100%;
-  max-height: 480px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   display: block;
 }
 
-/* Rich Article Content Typography */
+/* ==========================================================================
+   TINYMCE WYSIWYG RICH CONTENT STYLES & TYPOGRAPHY
+   Full compatibility with @tinymce/tinymce-react output
+   ========================================================================== */
 .blog-detail-content {
   font-size: 1.1rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: #334155;
+  word-break: break-word;
 }
 
 .blog-detail-content p {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  line-height: 1.85;
+}
+
+/* Headings */
+.blog-detail-content h1 {
+  font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 42px;
+  margin-bottom: 18px;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .blog-detail-content h2 {
-  font-size: 1.75rem;
+  font-size: clamp(1.4rem, 2.8vw, 1.8rem);
   font-weight: 800;
   color: #0F172A;
-  margin-top: 48px;
-  margin-bottom: 18px;
+  margin-top: 44px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E2E8F0;
   font-family: 'Outfit', sans-serif;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
 }
 
 .blog-detail-content h3 {
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
   font-weight: 700;
-  color: #0F172A;
-  margin-top: 36px;
+  color: #1E293B;
+  margin-top: 34px;
   margin-bottom: 14px;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.blog-detail-content h4,
+.blog-detail-content h5,
+.blog-detail-content h6 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin-top: 28px;
+  margin-bottom: 12px;
   font-family: 'Outfit', sans-serif;
 }
 
-.blog-detail-content ul,
-.blog-detail-content ol {
-  margin-bottom: 28px;
-  padding-left: 28px;
+/* TinyMCE Text Formats */
+.blog-detail-content strong,
+.blog-detail-content b {
+  font-weight: 700;
+  color: #0F172A;
 }
 
-.blog-detail-content li {
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.blog-detail-content blockquote {
-  border-left: 4px solid #2563EB;
-  padding: 16px 24px;
-  margin: 32px 0;
-  background: #F8FAFC;
-  border-radius: 0 14px 14px 0;
+.blog-detail-content em,
+.blog-detail-content i {
   font-style: italic;
+}
+
+.blog-detail-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-detail-content s,
+.blog-detail-content del,
+.blog-detail-content strike {
+  text-decoration: line-through;
+  color: #64748B;
+}
+
+.blog-detail-content sub {
+  vertical-align: sub;
+  font-size: 0.75em;
+}
+
+.blog-detail-content sup {
+  vertical-align: super;
+  font-size: 0.75em;
+}
+
+/* TinyMCE Text Alignments */
+.blog-detail-content [style*="text-align: center"],
+.blog-detail-content .text-center {
+  text-align: center;
+}
+
+.blog-detail-content [style*="text-align: right"],
+.blog-detail-content .text-right {
+  text-align: right;
+}
+
+.blog-detail-content [style*="text-align: justify"],
+.blog-detail-content .text-justify {
+  text-align: justify;
+}
+
+/* TinyMCE Unordered Lists (All 4 Bullet Styles: Disc, Circle, Square & Hierarchical) */
+.blog-detail-content ul {
+  list-style: none !important;
+  margin-top: 14px !important;
+  margin-bottom: 24px !important;
+  padding-left: 0 !important;
+}
+
+.blog-detail-content ul > li {
+  position: relative !important;
+  padding-left: 24px !important;
+  margin-bottom: 10px !important;
+  line-height: 1.75;
+  color: #334155;
+  display: block !important;
+}
+
+/* 1. Default Level 1 & Solid Disc (Option 1 & 2 in TinyMCE) */
+.blog-detail-content ul > li::before,
+.blog-detail-content ul[style*="disc"] > li::before,
+.blog-detail-content ul[type="disc"] > li::before,
+.blog-detail-content li[style*="disc"]::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1D4FA3 0%, #69BC45 100%);
+  border: none;
+}
+
+/* 2. Hollow Circle Bullets (Option 3 in TinyMCE) */
+.blog-detail-content ul[style*="circle"] > li::before,
+.blog-detail-content ul[type="circle"] > li::before,
+.blog-detail-content li[style*="circle"]::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFFFFF !important;
+  border: 2px solid #1D4FA3 !important;
+}
+
+/* 3. Solid Square Bullets (Option 4 in TinyMCE) */
+.blog-detail-content ul[style*="square"] > li::before,
+.blog-detail-content ul[type="square"] > li::before,
+.blog-detail-content li[style*="square"]::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #1D4FA3 0%, #69BC45 100%) !important;
+  border: none;
+}
+
+/* 4. Hierarchical Nested Lists (Option 1 Level 2 & Level 3) */
+.blog-detail-content ul ul {
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  padding-left: 12px !important;
+}
+
+/* Level 2: Hollow Circle */
+.blog-detail-content ul ul > li::before {
+  left: 4px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FFFFFF !important;
+  border: 2px solid #69BC45 !important;
+}
+
+/* Level 3: Solid Square */
+.blog-detail-content ul ul ul > li::before {
+  left: 4px;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: #1D4FA3 !important;
+  border: none;
+}
+
+/* TinyMCE Ordered Lists (Default: Decimal 1, 2, 3...) */
+.blog-detail-content ol {
+  counter-reset: blog-counter;
+  list-style: none !important;
+  margin-top: 14px !important;
+  margin-bottom: 24px !important;
+  padding-left: 0 !important;
+}
+
+.blog-detail-content ol > li {
+  counter-increment: blog-counter;
+  position: relative !important;
+  padding-left: 34px !important;
+  margin-bottom: 10px !important;
+  line-height: 1.75;
+  color: #334155;
+  display: block !important;
+}
+
+.blog-detail-content ol > li::before {
+  content: counter(blog-counter, decimal) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, #1D4FA3 0%, #69BC45 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 26px;
+  text-align: left;
+}
+
+/* TinyMCE Lower Alpha Lists (a., b., c., d., e., f., g...) */
+.blog-detail-content ol[type="a"],
+.blog-detail-content ol[style*="lower-alpha"] {
+  counter-reset: blog-alpha;
+}
+
+.blog-detail-content ol[type="a"] > li,
+.blog-detail-content ol[style*="lower-alpha"] > li {
+  counter-increment: blog-alpha;
+}
+
+.blog-detail-content ol[type="a"] > li::before,
+.blog-detail-content ol[style*="lower-alpha"] > li::before {
+  content: counter(blog-alpha, lower-alpha) ".";
+}
+
+/* TinyMCE Upper Alpha Lists (A., B., C., D...) */
+.blog-detail-content ol[type="A"],
+.blog-detail-content ol[style*="upper-alpha"] {
+  counter-reset: blog-upper-alpha;
+}
+
+.blog-detail-content ol[type="A"] > li,
+.blog-detail-content ol[style*="upper-alpha"] > li {
+  counter-increment: blog-upper-alpha;
+}
+
+.blog-detail-content ol[type="A"] > li::before,
+.blog-detail-content ol[style*="upper-alpha"] > li::before {
+  content: counter(blog-upper-alpha, upper-alpha) ".";
+}
+
+/* TinyMCE Lower Roman Lists (i., ii., iii., iv...) */
+.blog-detail-content ol[type="i"],
+.blog-detail-content ol[style*="lower-roman"] {
+  counter-reset: blog-lower-roman;
+}
+
+.blog-detail-content ol[type="i"] > li,
+.blog-detail-content ol[style*="lower-roman"] > li {
+  counter-increment: blog-lower-roman;
+}
+
+.blog-detail-content ol[type="i"] > li::before,
+.blog-detail-content ol[style*="lower-roman"] > li::before {
+  content: counter(blog-lower-roman, lower-roman) ".";
+}
+
+/* TinyMCE Upper Roman Lists (I., II., III., IV...) */
+.blog-detail-content ol[type="I"],
+.blog-detail-content ol[style*="upper-roman"] {
+  counter-reset: blog-upper-roman;
+}
+
+.blog-detail-content ol[type="I"] > li,
+.blog-detail-content ol[style*="upper-roman"] > li {
+  counter-increment: blog-upper-roman;
+}
+
+.blog-detail-content ol[type="I"] > li::before,
+.blog-detail-content ol[style*="upper-roman"] > li::before {
+  content: counter(blog-upper-roman, upper-roman) ".";
+}
+
+/* TinyMCE Nested Ordered Lists */
+.blog-detail-content ol ol {
+  counter-reset: blog-subcounter;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  padding-left: 12px !important;
+}
+
+.blog-detail-content ol ol > li {
+  counter-increment: blog-subcounter;
+}
+
+.blog-detail-content ol ol > li::before {
+  content: counter(blog-counter) "." counter(blog-subcounter);
+  font-size: 0.95rem;
+}
+
+/* TinyMCE Blockquotes */
+.blog-detail-content blockquote {
+  border-left: 4px solid #1D4FA3;
+  padding: 18px 24px;
+  margin: 28px 0;
+  background: #F8FAFC;
+  border-radius: 0 16px 16px 0;
   color: #1E293B;
+  font-size: 1.1rem;
+  font-style: italic;
+  box-shadow: inset 0 0 0 1px rgba(29, 79, 163, 0.08);
+}
+
+.blog-detail-content blockquote p {
+  margin-bottom: 0;
+}
+
+/* TinyMCE Links */
+.blog-detail-content a {
+  color: #1D4FA3;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.blog-detail-content a:hover {
+  color: #69BC45;
+}
+
+/* TinyMCE Code Blocks & Inline Code */
+.blog-detail-content code {
+  background: #EFF6FF;
+  color: #1D4FA3;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px solid #DBEAFE;
+}
+
+.blog-detail-content pre {
+  background: #0F172A;
+  color: #F8FAFC;
+  padding: 20px 24px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-detail-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: 0.9rem;
+}
+
+/* TinyMCE Tables */
+.blog-detail-content table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 30px 0 !important;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E2E8F0;
+  display: table;
+}
+
+.blog-detail-content th,
+.blog-detail-content td {
+  padding: 12px 16px !important;
+  border: 1px solid #E2E8F0 !important;
+  text-align: left;
+}
+
+.blog-detail-content th {
+  background: #F1F5F9 !important;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.blog-detail-content tr:nth-child(even) {
+  background: #F8FAFC;
+}
+
+/* TinyMCE Images & Media Floats */
+.blog-detail-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 20px 0;
+  display: block;
+}
+
+.blog-detail-content img.alignleft,
+.blog-detail-content img[style*="float: left"] {
+  float: left;
+  margin-right: 24px;
+  margin-bottom: 16px;
+}
+
+.blog-detail-content img.alignright,
+.blog-detail-content img[style*="float: right"] {
+  float: right;
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+.blog-detail-content img.aligncenter,
+.blog-detail-content img[style*="margin-left: auto"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-detail-content figure {
+  margin: 24px 0;
+}
+
+.blog-detail-content figcaption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* TinyMCE Horizontal Rules */
+.blog-detail-content hr {
+  border: none;
+  height: 1px;
+  background: #E2E8F0;
+  margin: 36px 0;
+}
+
+/* TinyMCE Responsive Video/Iframe Embeds */
+.blog-detail-content iframe {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 24px 0;
 }
 
 .blog-detail-tags-section {

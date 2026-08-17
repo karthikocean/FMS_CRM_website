@@ -134,6 +134,9 @@ export const mapApiBlogToUiBlog = (apiBlog) => {
           .replace(/(^-|-$)+/g, "")
       : apiBlog._id || apiBlog.id);
 
+  // Auto-clean & format HTML content (handles Word paste bullets, MSO comments, orphan <li> tags)
+  const formattedContent = cleanAndFormatBlogHtml(apiBlog.content || "");
+
   // Auto-generate excerpt if not present
   const excerpt =
     apiBlog.excerpt ||
@@ -150,7 +153,8 @@ export const mapApiBlogToUiBlog = (apiBlog) => {
     slug: slug,
     title: apiBlog.title || "",
     excerpt: excerpt,
-    content: apiBlog.content || "",
+    content: formattedContent,
+    rawContent: apiBlog.content || "",
     category: apiBlog.category || "",
     author: apiBlog.author || "",
     authorRole: apiBlog.authorRole || "",
@@ -163,4 +167,135 @@ export const mapApiBlogToUiBlog = (apiBlog) => {
     featured: Boolean(apiBlog.featured),
     status: apiBlog.status || "Published",
   };
+};
+
+/**
+ * Cleans and transforms raw HTML blog content into standard, semantic HTML.
+ * Intelligently converts MS Word pastes, plain-text numbered lists (1., 2.),
+ * alphabetical lists (a., b.), and bullet lists (•, &middot;) into proper <ol>, <ol type="a">, and <ul> structures.
+ * 
+ * @param {string} html Raw HTML from backend or WYSIWYG editor
+ * @returns {string} Clean formatted HTML with proper semantic tags
+ */
+export const cleanAndFormatBlogHtml = (html) => {
+  if (!html || typeof html !== "string") return "";
+
+  let cleaned = html;
+
+  // 1. Process MS Word conditional comments & MSO list tags by detecting list type
+  cleaned = cleaned.replace(
+    /<!--\s*\[if\s+!supportLists\][\s\S]*?<!--\s*\[endif\]\s*-->|<span[^>]*style="[^"]*mso-list:\s*Ignore[^"]*"[^>]*>[\s\S]*?<\/span>/gi,
+    (match) => {
+      // Check if it was a number (e.g. 1., 2.), alphabet (e.g. a., b.), or bullet
+      if (/\b\d+[\.\)]/i.test(match)) {
+        return "<!--MSO_NUM-->";
+      } else if (/\b[a-zA-Z][\.\)]/i.test(match)) {
+        return "<!--MSO_ALPHA-->";
+      }
+      return "<!--MSO_BULLET-->";
+    }
+  );
+
+  // 2. Convert MS Office List paragraphs based on marker
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>\s*<!--MSO_NUM-->\s*([\s\S]*?)<\/p>/gi,
+    (match, text) => {
+      const trimmed = text.replace(/^\d+[\.\)]\s*/, "").trim();
+      return trimmed ? `<li data-list-type="num">${trimmed}</li>` : "";
+    }
+  );
+
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>\s*<!--MSO_ALPHA-->\s*([\s\S]*?)<\/p>/gi,
+    (match, text) => {
+      const trimmed = text.replace(/^[a-zA-Z][\.\)]\s*/, "").trim();
+      return trimmed ? `<li data-list-type="alpha">${trimmed}</li>` : "";
+    }
+  );
+
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>\s*<!--MSO_BULLET-->\s*([\s\S]*?)<\/p>/gi,
+    (match, text) => {
+      const trimmed = text.replace(/^(?:&middot;|&#183;|&bull;|&#8226;|•|·|▪|▫|\u00b7|\u2022|&nbsp;|\s|-|\*)+/i, "").trim();
+      return trimmed ? `<li data-list-type="bullet">${trimmed}</li>` : "";
+    }
+  );
+
+  // 3. Convert plain paragraphs starting with middle dot / bullet (·, &middot;, •, etc.) into bullet list items
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>(?:<span[^>]*>)?(?:\s|&nbsp;)*(?:&middot;|&#183;|&bull;|&#8226;|•|·|▪|▫|\u00b7|\u2022)(?:\s|&nbsp;)*(?:<\/span>)?(?:\s|&nbsp;)*([\s\S]*?)<\/p>/gi,
+    (match, text) => {
+      const trimmed = text.replace(/^(?:&middot;|&#183;|&bull;|&#8226;|•|·|▪|▫|\u00b7|\u2022|&nbsp;|\s)+/i, "").trim();
+      return trimmed ? `<li data-list-type="bullet">${trimmed}</li>` : "";
+    }
+  );
+
+  // 4. Convert plain paragraphs starting with numbers ONLY when sequential: <p>1. Text</p> or <p>1) Text</p>
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>\s*(?:<strong>)?(\d+)[\.\)](?:<\/strong>)?\s+([\s\S]*?)<\/p>/gi,
+    (match, num, text) => {
+      const trimmed = text.trim();
+      return trimmed ? `<li data-list-type="num">${trimmed}</li>` : "";
+    }
+  );
+
+  // 5. Convert plain paragraphs starting with alpha: <p>a. Text</p> or <p>a) Text</p>
+  cleaned = cleaned.replace(
+    /<p\b[^>]*>\s*(?:<strong>)?([a-zA-Z])[\.\)](?:<\/strong>)?\s+([\s\S]*?)<\/p>/gi,
+    (match, alpha, text) => {
+      const trimmed = text.trim();
+      return trimmed ? `<li data-list-type="alpha">${trimmed}</li>` : "";
+    }
+  );
+
+  // 6. Clean double bullet dots inside existing <li> tags
+  cleaned = cleaned.replace(
+    /<li\b([^>]*)>(?:\s|&nbsp;)*(?:&middot;|&#183;|&bull;|&#8226;|•|·|▪|▫|\u00b7|\u2022)(?:\s|&nbsp;)*([\s\S]*?)<\/li>/gi,
+    "<li$1>$2</li>"
+  );
+
+  // 7. Group orphan <li> elements into proper <ol>, <ol type="a">, or <ul> using DOMParser
+  if (typeof window !== "undefined" && typeof DOMParser !== "undefined") {
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(`<body>${cleaned}</body>`, "text/html");
+      const body = doc.body;
+
+      let currentContainer = null;
+      let currentType = null;
+      const nodes = Array.from(body.childNodes);
+
+      nodes.forEach((node) => {
+        if (node.nodeType === 1 && node.tagName.toLowerCase() === "li") {
+          const listType = node.getAttribute("data-list-type") || "bullet";
+          node.removeAttribute("data-list-type");
+
+          if (!currentContainer || currentType !== listType) {
+            currentType = listType;
+            if (listType === "num") {
+              currentContainer = doc.createElement("ol");
+            } else if (listType === "alpha") {
+              currentContainer = doc.createElement("ol");
+              currentContainer.setAttribute("type", "a");
+            } else {
+              currentContainer = doc.createElement("ul");
+            }
+            body.insertBefore(currentContainer, node);
+          }
+          currentContainer.appendChild(node);
+        } else if (node.nodeType === 3 && !node.textContent.trim()) {
+          // Keep whitespace within current group
+        } else {
+          currentContainer = null;
+          currentType = null;
+        }
+      });
+
+      cleaned = body.innerHTML;
+    } catch (err) {
+      console.warn("HTML list normalization fallback:", err);
+    }
+  }
+
+  return cleaned;
 };
