@@ -1,9 +1,9 @@
 export const routeSeoMap = {
   '': {
     path: '',
-    title: 'Smart Facility Management Software CMMS | FacilityCore',
-    description: 'FacilityCore is a smart facility management software and CMMS platform with a facility management system to automate maintenance and track assets.',
-    keywords: 'facility management software, facility management system, CMMS software',
+    title: 'Facility Management Software in India | FacilityCore',
+    description: 'FacilityCore is facility management software for managing preventive maintenance, assets, work orders, complaints, AMC, vendors and facility operations. Book a free demo.',
+    keywords: 'facility management software, facility management software India, facility management system, facility maintenance software, preventive maintenance software, asset management software, CMMS software, AMC management software',
     canonical: 'https://facilitycore.in/',
     image: 'https://facilitycore.in/homepageherosection2img.png'
   },
