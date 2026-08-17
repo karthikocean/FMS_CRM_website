@@ -101,9 +101,9 @@ const SOFTWARE_APP_SCHEMA = {
 
 // Home Page SEO Data
 export const homeSeo = {
-  title: "Facility Management Software & CMMS Platform | FacilityCore",
-  description: "FacilityCore is an all-in-one smart facility management software (CAFM & CMMS) for enterprise real estate, office towers, healthcare, retail, & industrial facilities. Streamline work orders, preventive maintenance, assets, and SLA tracking.",
-  keywords: "Facility Management Software, CAFM Software, CMMS Software, Asset Management Software, Preventive Maintenance Software, Work Order Management Software, Maintenance Management Software, Enterprise Facility Management, Building Management Software, Facility Maintenance Software, Property Operations Platform, Tenant Portal, Vendor Management System, Commercial Property CMMS",
+  title: "Facility Management Software in India | FacilityCore",
+  description: "FacilityCore is facility management software for managing preventive maintenance, assets, work orders, complaints, AMC, vendors and facility operations. Book a free demo.",
+  keywords: "facility management software, facility management software India, facility management system, facility maintenance software, preventive maintenance software, asset management software, CMMS software, AMC management software",
   canonical: "https://facilitycore.in/",
   robots: "index, follow",
   ogTitle: "Facility Management Software & CMMS Platform | FacilityCore",
