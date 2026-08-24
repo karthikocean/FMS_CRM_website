@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://api.facilitycore.in/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.in/api/v1";
 
 /**
  * Fetches the list of company packages from the API.
