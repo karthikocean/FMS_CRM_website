@@ -36,15 +36,21 @@ export const getFMCompanyPackages = async () => {
  */
 export const mapApiPlanToUiPlan = (apiPlan, countryCode = "US") => {
     // Determine which price object to use based on countryCode
-    let matchedPrice = apiPlan.prices?.find((p) => p.country === countryCode);
+    let matchedPrice = apiPlan.prices?.find((p) => (p.countryCode || p.country) === countryCode);
     if (!matchedPrice) {
         // Fallback to "US" or the first available price if the specific country isn't explicitly configured
-        matchedPrice = apiPlan.prices?.find((p) => p.country === "US") || apiPlan.prices?.[0] || {};
+        matchedPrice = apiPlan.prices?.find((p) => (p.countryCode || p.country) === "US") || apiPlan.prices?.[0] || {};
     }
 
     const price = matchedPrice.price ?? apiPlan.planPrice ?? 0;
     const discountprice = matchedPrice.discountprice ?? apiPlan.discountPrice;
-    const currency = matchedPrice.currency || apiPlan.planCurrency || "USD";
+    
+    // Safely extract the currency code (must be a valid 3-letter string, not a MongoDB ObjectId)
+    let currency = matchedPrice.currency || apiPlan.planCurrency || "USD";
+    if (typeof currency === "string" && currency.length > 3) {
+        currency = apiPlan.planCurrency || "USD";
+    }
+    
     const discount = apiPlan.discount ?? 0;
 
     // Format price using locale-aware formatting based on currency
