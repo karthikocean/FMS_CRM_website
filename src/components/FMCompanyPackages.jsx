@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FiTag, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { fmSaasPlans, fmModules } from "../data/pricingData";
 import { getFMCompanyPackages, mapApiPlanToUiPlan } from "../api/FMCompanyPackages";
+import useLocation from "../hooks/useLocation";
 import "../styles/FMCompanyPackages.css";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -24,7 +25,7 @@ const headerVariant = {
 
 // ─── Pricing Card Component ───────────────────────────────────────────────────
 
-const SaasPricingCard = ({ plan, index }) => {
+const SaasPricingCard = ({ plan, index, countryCode }) => {
   const navigate = useNavigate();
   const isCustomize = plan.buttonType === "contact";
   const [showAllModules, setShowAllModules] = useState(false);
@@ -47,10 +48,13 @@ const SaasPricingCard = ({ plan, index }) => {
           const url = new URL(plan.buttonLink);
           url.searchParams.set("planId", plan.id);
           url.searchParams.set("trial", "true");
+          if (countryCode) {
+            url.searchParams.set("country", countryCode);
+          }
           targetUrl = url.toString();
         } catch (e) {
           const separator = plan.buttonLink.includes("?") ? "&" : "?";
-          targetUrl = `${plan.buttonLink}${separator}planId=${plan.id}&trial=true`;
+          targetUrl = `${plan.buttonLink}${separator}planId=${plan.id}&trial=true${countryCode ? `&country=${countryCode}` : ""}`;
         }
       }
       window.open(targetUrl, "_blank", "noopener noreferrer");
@@ -235,6 +239,7 @@ const ProductsIncluded = () => {
 
 const FMCompanyPackages = () => {
   const [plans, setPlans] = useState(fmSaasPlans);
+  const { location, loading } = useLocation();
 
   useEffect(() => {
     let active = true;
@@ -247,6 +252,8 @@ const FMCompanyPackages = () => {
             : (response.data || response.result || response.packages || []);
 
           if (Array.isArray(rawPlans) && rawPlans.length > 0) {
+            const countryCode = location?.country_code || "US";
+
             const apiPlans = rawPlans
               .slice()
               .sort((a, b) => {
@@ -254,7 +261,7 @@ const FMCompanyPackages = () => {
                 const priceB = b.price ?? b.planPrice ?? 0;
                 return priceA - priceB;
               })
-              .map(mapApiPlanToUiPlan);
+              .map((plan) => mapApiPlanToUiPlan(plan, countryCode));
 
             // Append static "Customize" plan at the end
             const customizePlan = fmSaasPlans.find((plan) => plan.id === "customize");
@@ -270,11 +277,13 @@ const FMCompanyPackages = () => {
       }
     };
 
-    fetchPlans();
+    if (!loading) {
+      fetchPlans();
+    }
     return () => {
       active = false;
     };
-  }, []);
+  }, [location, loading]);
 
   return (
     <section className="fmsp-section" id="fm-companies">
@@ -301,7 +310,7 @@ const FMCompanyPackages = () => {
         {/* Pricing Cards Grid */}
         <div className="fmsp-cards-grid">
           {plans.map((plan, idx) => (
-            <SaasPricingCard key={plan.id || idx} plan={plan} index={idx} />
+            <SaasPricingCard key={plan.id || idx} plan={plan} index={idx} countryCode={location?.country_code || "US"} />
           ))}
         </div>
 

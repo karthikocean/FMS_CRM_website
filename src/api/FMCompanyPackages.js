@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.in/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3004/api/v1";
 
 /**
  * Fetches the list of company packages from the API.
@@ -31,19 +31,29 @@ export const getFMCompanyPackages = async () => {
  * Maps a plan object from the backend API structure to the structure required by the frontend UI.
  * 
  * @param {Object} apiPlan The raw plan object from the database API.
+ * @param {string} countryCode The detected country code (e.g., 'IN', 'US').
  * @returns {Object} Formatted plan object matching the frontend pricing data structure.
  */
-export const mapApiPlanToUiPlan = (apiPlan) => {
-    const price = apiPlan.price ?? apiPlan.planPrice ?? 0;
-    const discount = apiPlan.discount ?? 0;
-    const discountprice = apiPlan.discountprice ?? apiPlan.discountPrice;
+export const mapApiPlanToUiPlan = (apiPlan, countryCode = "US") => {
+    // Determine which price object to use based on countryCode
+    let matchedPrice = apiPlan.prices?.find((p) => p.country === countryCode);
+    if (!matchedPrice) {
+        // Fallback to "US" or the first available price if the specific country isn't explicitly configured
+        matchedPrice = apiPlan.prices?.find((p) => p.country === "US") || apiPlan.prices?.[0] || {};
+    }
 
-    // Format price using Indian Rupee format as required
+    const price = matchedPrice.price ?? apiPlan.planPrice ?? 0;
+    const discountprice = matchedPrice.discountprice ?? apiPlan.discountPrice;
+    const currency = matchedPrice.currency || apiPlan.planCurrency || "USD";
+    const discount = apiPlan.discount ?? 0;
+
+    // Format price using locale-aware formatting based on currency
     const formatPrice = (val) => {
         if (val === null || val === undefined || isNaN(Number(val))) return "";
-        return new Intl.NumberFormat("en-IN", {
+        const locale = currency === "INR" ? "en-IN" : "en-US";
+        return new Intl.NumberFormat(locale, {
             style: "currency",
-            currency: apiPlan.planCurrency || "INR",
+            currency: currency,
             maximumFractionDigits: 0
         }).format(val);
     };
