@@ -257,6 +257,17 @@ const FMCompanyPackages = () => {
             const apiPlans = rawPlans
               .slice()
               .sort((a, b) => {
+                const planOrder = ["starter", "business", "business pro", "customize"];
+                const nameA = (a.planName || "").toLowerCase().trim();
+                const nameB = (b.planName || "").toLowerCase().trim();
+                
+                const indexA = planOrder.indexOf(nameA);
+                const indexB = planOrder.indexOf(nameB);
+                
+                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                
                 const priceA = a.price ?? a.planPrice ?? 0;
                 const priceB = b.price ?? b.planPrice ?? 0;
                 return priceA - priceB;
