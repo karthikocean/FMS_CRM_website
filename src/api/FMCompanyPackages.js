@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.in/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.in//api/v1";
 
 /**
  * Fetches the list of company packages from the API.
@@ -6,9 +6,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.facilitycore.i
  * 
  * @returns {Promise<Object>} The API response containing { data, total, page, limit }.
  */
-export const getFMCompanyPackages = async () => {
+export const getFMCompanyPackages = async (countryCode) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/package/web-list`, {
+        const query = countryCode ? `?countryCode=${countryCode}` : '';
+        const response = await fetch(`${API_BASE_URL}/package/web-list${query}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -44,13 +45,13 @@ export const mapApiPlanToUiPlan = (apiPlan, countryCode = "US") => {
 
     const price = matchedPrice.price ?? apiPlan.planPrice ?? 0;
     const discountprice = matchedPrice.discountprice ?? apiPlan.discountPrice;
-    
+
     // Safely extract the currency code (must be a valid 3-letter string, not a MongoDB ObjectId)
     let currency = matchedPrice.currency || apiPlan.planCurrency || "USD";
     if (typeof currency === "string" && currency.length > 3) {
         currency = apiPlan.planCurrency || "USD";
     }
-    
+
     const discount = apiPlan.discount ?? 0;
 
     // Format price using locale-aware formatting based on currency
