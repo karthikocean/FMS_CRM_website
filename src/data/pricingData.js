@@ -306,36 +306,36 @@ export const fmSaasPlans = [
   //     "mobileApp", "notifications"
   //   ]
   // },
-  // {
-  //   id: "customize",
-  //   name: "Customize",
-  //   originalPrice: "Custom",
-  //   discountPercent: null,
-  //   discountedPrice: "Contact Us",
-  //   period: "",
-  //   users: "Unlimited Users",
-  //   storage: "Unlimited Storage",
-  //   platform: "Web + Mobile + API",
-  //   features: [
-  //     "Unlimited Properties",
-  //     "Unlimited Assets",
-  //     "Custom User Allocation",
-  //     "Dedicated Account Manager",
-  //     "White-label Options",
-  //     "Custom Integrations",
-  //     "SLA Guarantee",
-  //     "On-premise Available"
-  //   ],
-  //   buttonText: "Contact Us",
-  //   buttonType: "contact",
-  //   buttonLink: "/contact",
-  //   moduleIds: [
-  //     "dashboard", "businessSuite", "assetManagement", "preventiveMaintenance",
-  //     "reactiveMaintenance", "helpdesk", "vendorManagement", "compliance",
-  //     "attendance", "visitor", "parking", "crm", "reports", "workflow",
-  //     "mobileApp", "notifications"
-  //   ]
-  // }
+  {
+    id: "customize",
+    name: "Customize",
+    originalPrice: "Custom",
+    discountPercent: null,
+    discountedPrice: "Contact Us",
+    period: "",
+    users: "Unlimited Users",
+    storage: "Unlimited Storage",
+    platform: "Web + Mobile + API",
+    features: [
+      "Unlimited Properties",
+      "Unlimited Assets",
+      "Custom User Allocation",
+      "Dedicated Account Manager",
+      "White-label Options",
+      "Custom Integrations",
+      "SLA Guarantee",
+      "On-premise Available"
+    ],
+    buttonText: "Contact Us",
+    buttonType: "contact",
+    buttonLink: "/contact",
+    moduleIds: [
+      "dashboard", "businessSuite", "assetManagement", "preventiveMaintenance",
+      "reactiveMaintenance", "helpdesk", "vendorManagement", "compliance",
+      "attendance", "visitor", "parking", "crm", "reports", "workflow",
+      "mobileApp", "notifications"
+    ]
+  }
 ];
 
 // ─── Module definitions for "Products Included" icon grid ────────────────────
