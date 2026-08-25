@@ -49,12 +49,12 @@ const SaasPricingCard = ({ plan, index, countryCode }) => {
           url.searchParams.set("planId", plan.id);
           url.searchParams.set("trial", "true");
           if (countryCode) {
-            url.searchParams.set("country", countryCode);
+            url.searchParams.set("countryCode", countryCode);
           }
           targetUrl = url.toString();
         } catch (e) {
           const separator = plan.buttonLink.includes("?") ? "&" : "?";
-          targetUrl = `${plan.buttonLink}${separator}planId=${plan.id}&trial=true${countryCode ? `&country=${countryCode}` : ""}`;
+          targetUrl = `${plan.buttonLink}${separator}planId=${plan.id}&trial=true${countryCode ? `&countryCode=${countryCode}` : ""}`;
         }
       }
       window.open(targetUrl, "_blank", "noopener noreferrer");
@@ -245,14 +245,14 @@ const FMCompanyPackages = () => {
     let active = true;
     const fetchPlans = async () => {
       try {
-        const response = await getFMCompanyPackages();
+        const countryCode = location?.country_code || "US";
+        const response = await getFMCompanyPackages(countryCode);
         if (active && response) {
           const rawPlans = Array.isArray(response)
             ? response
-            : (response.data || response.result || response.packages || []);
+            : (response.response || response.data || response.result || response.packages || []);
 
           if (Array.isArray(rawPlans) && rawPlans.length > 0) {
-            const countryCode = location?.country_code || "US";
 
             const apiPlans = rawPlans
               .slice()
