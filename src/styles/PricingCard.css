@@ -91,6 +91,10 @@
     gap: 8px;
 }
 
+.card-breakdown:last-child {
+    margin-bottom: 0;
+}
+
 .breakdown-row {
     display: flex;
     justify-content: space-between;

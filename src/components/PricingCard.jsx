@@ -66,14 +66,16 @@ const PricingCard = ({
         </ul>
       )}
 
-      <div className="card-action">
-        <button
-          onClick={onCtaClick}
-          className={`btn ${highlighted ? "btn-primary" : "btn-secondary"} w-100`}
-        >
-          {cta}
-        </button>
-      </div>
+      {cta && (
+        <div className="card-action">
+          <button
+            onClick={onCtaClick}
+            className={`btn ${highlighted ? "btn-primary" : "btn-secondary"} w-100`}
+          >
+            {cta}
+          </button>
+        </div>
+      )}
     </motion.div>
   );
 };

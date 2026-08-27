@@ -1,5 +1,4 @@
 .individual-modules-section {
-    padding-top: 2.5rem;
     padding-bottom: 2.5rem;
     background: #f8fafc;
     border-top: 1px solid rgba(15, 23, 42, 0.04);
@@ -8,9 +7,12 @@
 
 .individual-modules-section .pricing-section-header {
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto 48px;
-    padding: 0 48px;
+    max-width: 680px;
+    margin: 0 auto 64px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .modules-cards-grid {
@@ -20,6 +22,22 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
+}
+
+.module-pricing-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.module-pricing-card .card-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.module-pricing-card .card-title {
+    margin: 0;
 }
 
 .module-pricing-card .card-price {

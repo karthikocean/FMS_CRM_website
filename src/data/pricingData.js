@@ -66,7 +66,7 @@ export const propertyPackagesTable = {
     { id: "enterprise", name: "Enterprise", subtitle: "For large complexes" }
   ],
   rows: [
-    { label: "Platform Fee", starter: "₹550 / mo", professional: "₹550 / mo", enterprise: "₹550 / mo" },
+    { label: "Platform Fee", starter: "₹650 / mo", professional: "₹550 / mo", enterprise: "₹550 / mo" },
     { label: "Package Price", starter: "₹1,200 / mo", professional: "₹2,500 / mo", enterprise: "Custom" },
     { label: "Total Price", starter: "₹1,750 / mo", professional: "₹3,050 / mo", enterprise: "Custom Pricing" },
     { label: "Assets Limit", starter: "Up to 500", professional: "Up to 1,500", enterprise: "Unlimited" },
@@ -104,46 +104,64 @@ export const additionalCharges = [
 
 export const individualModules = [
   {
+    id: "assetMaintenance",
     icon: React.createElement(FiBox),
     name: "Asset & Maintenance",
+    inr: { price: 499, platformFee: 650, total: 1149 },
+    usd: { price: 5.23, platformFee: 6.81, total: 12.04 },
     price: "₹499",
-    platformFee: "₹550",
+    platformFee: "₹650",
+    total: "₹1,149"
+  },
+  {
+    id: "occupants",
+    icon: React.createElement(FiUsers),
+    name: "Occupant Management",
+    inr: { price: 399, platformFee: 650, total: 1049 },
+    usd: { price: 4.18, platformFee: 6.81, total: 10.99 },
+    price: "₹399",
+    platformFee: "₹650",
     total: "₹1,049"
   },
   {
-    icon: React.createElement(FiUsers),
-    name: "Occupant Management",
-    price: "₹399",
-    platformFee: "₹550",
+    id: "visitor",
+    icon: React.createElement(FiUserPlus),
+    name: "Visitor Management",
+    inr: { price: 299, platformFee: 650, total: 949 },
+    usd: { price: 3.13, platformFee: 6.81, total: 9.94 },
+    price: "₹299",
+    platformFee: "₹650",
     total: "₹949"
   },
   {
-    icon: React.createElement(FiUserPlus),
-    name: "Visitor Management",
-    price: "₹299",
-    platformFee: "₹550",
-    total: "₹849"
-  },
-  {
+    id: "parking",
     icon: React.createElement(FiTruck),
     name: "Parking & Vehicle",
+    inr: { price: 349, platformFee: 650, total: 999 },
+    usd: { price: 3.66, platformFee: 6.81, total: 10.47 },
     price: "₹349",
-    platformFee: "₹550",
+    platformFee: "₹650",
+    total: "₹999"
+  },
+  {
+    id: "vendorManagement",
+    icon: React.createElement(FiGrid),
+    name: "Vendor Management",
+    inr: { price: 249, platformFee: 650, total: 899 },
+    usd: { price: 2.61, platformFee: 6.81, total: 9.42 },
+    price: "₹249",
+    platformFee: "₹650",
     total: "₹899"
   },
   {
-    icon: React.createElement(FiGrid),
-    name: "Vendor Management",
-    price: "₹249",
-    platformFee: "₹550",
-    total: "₹799"
-  },
-  {
+    id: "compliance",
     icon: React.createElement(FiActivity),
     name: "Compliance Logs",
+    inr: { price: 199, platformFee: 650, total: 849 },
+    usd: { price: 2.09, platformFee: 6.81, total: 8.90 },
     price: "₹199",
-    platformFee: "₹550",
-    total: "₹749"
+    platformFee: "₹650",
+    total: "₹849"
   }
 ];
 
@@ -221,91 +239,6 @@ export const fmCompanyPackages = [
 // ─── NEW: FM SaaS Company Pricing Plans (4-card section) ─────────────────────
 
 export const fmSaasPlans = [
-  // {
-  //   id: "starter",
-  //   name: "Starter",
-  //   originalPrice: "₹2,139",
-  //   discountPercent: "30% OFF",
-  //   discountedPrice: "₹1,497",
-  //   period: "/month",
-  //   users: "Up to 10 Users",
-  //   storage: "5 GB Storage",
-  //   platform: "Web + Mobile",
-  //   features: [
-  //     "5 Properties",
-  //     "1,000 Assets",
-  //     "5 Web Users",
-  //     "5 Mobile Users",
-  //     "Email Support",
-  //     "Basic Analytics"
-  //   ],
-  //   buttonText: "Free Trial",
-  //   buttonType: "signup",
-  //   buttonLink: "https://admin.facilitycore.in/register",
-  //   moduleIds: [
-  //     "dashboard", "businessSuite", "assetManagement", "preventiveMaintenance",
-  //     "helpdesk", "attendance", "reports", "mobileApp", "notifications"
-  //   ]
-  // },
-  // {
-  //   id: "business",
-  //   name: "Business",
-  //   originalPrice: "₹4,284",
-  //   discountPercent: "30% OFF",
-  //   discountedPrice: "₹2,997",
-  //   period: "/month",
-  //   users: "Up to 25 Users",
-  //   storage: "20 GB Storage",
-  //   platform: "Web + Mobile",
-  //   features: [
-  //     "15 Properties",
-  //     "5,000 Assets",
-  //     "15 Web Users",
-  //     "10 Mobile Users",
-  //     "Priority Support",
-  //     "Advanced Analytics",
-  //     "Vendor Management",
-  //     "Compliance Tracking"
-  //   ],
-  //   buttonText: "Free Trial",
-  //   buttonType: "signup",
-  //   buttonLink: "https://admin.facilitycore.in/register",
-  //   moduleIds: [
-  //     "dashboard", "businessSuite", "assetManagement", "preventiveMaintenance",
-  //     "reactiveMaintenance", "helpdesk", "vendorManagement", "compliance",
-  //     "attendance", "visitor", "reports", "workflow", "mobileApp", "notifications"
-  //   ]
-  // },
-  // {
-  //   id: "pro",
-  //   name: "Pro",
-  //   originalPrice: "₹7,139",
-  //   discountPercent: "30% OFF",
-  //   discountedPrice: "₹4,997",
-  //   period: "/month",
-  //   users: "Up to 50 Users",
-  //   storage: "50 GB Storage",
-  //   platform: "Web + Mobile",
-  //   features: [
-  //     "30 Properties",
-  //     "Unlimited Assets",
-  //     "25 Web Users",
-  //     "25 Mobile Users",
-  //     "24/7 Dedicated Support",
-  //     "Custom Dashboards",
-  //     "Full Module Access",
-  //     "API Integrations"
-  //   ],
-  //   buttonText: "Free Trial",
-  //   buttonType: "signup",
-  //   buttonLink: "https://admin.facilitycore.in/register",
-  //   moduleIds: [
-  //     "dashboard", "businessSuite", "assetManagement", "preventiveMaintenance",
-  //     "reactiveMaintenance", "helpdesk", "vendorManagement", "compliance",
-  //     "attendance", "visitor", "parking", "crm", "reports", "workflow",
-  //     "mobileApp", "notifications"
-  //   ]
-  // },
   {
     id: "customize",
     name: "Customize",
@@ -347,12 +280,12 @@ export const fmModules = [
     icon: FiBarChart2
   },
   {
-    id: "service",
+    id: "helpdesk",
     name: "Helpdesk",
     icon: FiMessageSquare
   },
   {
-    id: "helpdesk",
+    id: "service",
     name: "Helpdesk",
     icon: FiMessageSquare
   },
@@ -382,12 +315,12 @@ export const fmModules = [
     icon: FiUsers
   },
   {
-    id: "assetMaintenance",
+    id: "assetManagement",
     name: "Asset Management",
     icon: FiBox
   },
   {
-    id: "assetManagement",
+    id: "assetMaintenance",
     name: "Asset Management",
     icon: FiBox
   },
@@ -412,12 +345,12 @@ export const fmModules = [
     icon: FiUserCheck
   },
   {
-    id: "tenantMobileApp",
+    id: "mobileApp",
     name: "Mobile App",
     icon: FiSmartphone
   },
   {
-    id: "mobileApp",
+    id: "tenantMobileApp",
     name: "Mobile App",
     icon: FiSmartphone
   },
@@ -427,12 +360,12 @@ export const fmModules = [
     icon: FiFileText
   },
   {
-    id: "vendors",
+    id: "vendorManagement",
     name: "Vendor Management",
     icon: FiClipboard
   },
   {
-    id: "vendorManagement",
+    id: "vendors",
     name: "Vendor Management",
     icon: FiClipboard
   },
@@ -467,12 +400,12 @@ export const fmModules = [
     icon: FiCalendar
   },
   {
-    id: "workflowApprovals",
+    id: "workflow",
     name: "Workflow",
     icon: FiSettings
   },
   {
-    id: "workflow",
+    id: "workflowApprovals",
     name: "Workflow",
     icon: FiSettings
   },
