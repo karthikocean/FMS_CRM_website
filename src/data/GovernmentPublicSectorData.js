@@ -240,7 +240,7 @@ export const seoData = {
 export const governmentPublicSectorData = {
   hero: {
     badge: "GOVERNMENT & PUBLIC SECTOR CMMS PLATFORM",
-    title: "Government & Public Sector Facility Management Software",
+    title: "Government Facility Management Software",
     headline: "Ensure High Security, Public Asset Transparency & 100% Audit Compliance",
     description:
       "Unify government administrative buildings, municipal facilities, public infrastructure, civic assets, security gate passes, utility monitoring, contractor AMCs, and regulatory compliance into one secure cloud platform.",

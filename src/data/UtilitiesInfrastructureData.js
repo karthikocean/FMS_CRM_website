@@ -242,7 +242,7 @@ export const seoData = {
 export const utilitiesInfrastructureData = {
   hero: {
     badge: "UTILITIES & INFRASTRUCTURE CMMS PLATFORM",
-    title: "Utilities & Infrastructure Facility Management Software",
+    title: "Utility Facility Management Software",
     headline: "Ensure 100% Utility Reliability, Asset Uptime & Regulatory Compliance",
     description:
       "Unify power substations, water treatment plants (STP/ETP), solar farms, utility distribution, EHS safety compliance, contractor AMCs, and field workforce operations into one intelligent platform.",

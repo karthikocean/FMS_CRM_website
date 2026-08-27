@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FiTag, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiTag, FiGrid, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { fmSaasPlans, fmModules } from "../data/pricingData";
 import { getFMCompanyPackages, mapApiPlanToUiPlan } from "../api/FMCompanyPackages";
 import useLocation from "../hooks/useLocation";
@@ -196,6 +196,16 @@ const SaasPricingCard = ({ plan, index, countryCode }) => {
 // ─── Products Included Grid ──
 
 const ProductsIncluded = () => {
+  const uniqueModules = [];
+  const seenNames = new Set();
+
+  fmModules.forEach((mod) => {
+    if (!seenNames.has(mod.name)) {
+      seenNames.add(mod.name);
+      uniqueModules.push(mod);
+    }
+  });
+
   return (
     <motion.div
       className="fmsp-products-section"
@@ -204,19 +214,23 @@ const ProductsIncluded = () => {
       viewport={{ once: true, margin: "-60px" }}
     >
       <div className="fmsp-products-header">
-        <h3 className="fmsp-products-title">Products Included</h3>
-        <p className="fmsp-products-desc">
+        <span className="fmsp-badge">
+          <FiGrid className="fmsp-badge-icon" />
+          CORE SUITE
+        </span>
+        <h2 className="fmsp-heading">Products Included</h2>
+        <p className="fmsp-description">
           All plans include access to our core suite of facility management modules.
           Higher plans unlock more advanced capabilities.
         </p>
       </div>
 
       <div className="fmsp-products-grid">
-        {fmModules.map((mod, idx) => {
+        {uniqueModules.map((mod, idx) => {
           const IconComponent = mod.icon;
           return (
             <motion.div
-              key={mod.id}
+              key={mod.id || idx}
               className="fmsp-product-card"
               initial={{ opacity: 0, scale: 0.92 }}
               whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.4, delay: idx * 0.04 } }}
