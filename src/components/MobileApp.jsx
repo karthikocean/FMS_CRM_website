@@ -57,7 +57,7 @@ const MobileApp = () => {
                 <span className="mobileapp-store-title">App Store</span>
               </div>
             </a>
-            <a href="#" className="mobileapp-store-btn">
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.ocean.fcadmin.facility_core_admin_app&hl=en_IN" className="mobileapp-store-btn">
               <FaGooglePlay size={20} />
               <div className="flex flex-col items-start">
                 <span className="mobileapp-store-subtitle">GET IT ON</span>
