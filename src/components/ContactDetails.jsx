@@ -126,7 +126,10 @@ const ContactDetails = () => {
 
     // Fallback parsing if phoneNo or countryCode isn't set yet
     if (!payloadPhoneNo || !payloadCountryCode) {
-      if (form.phone.startsWith("91")) {
+      if (form.dialCode && form.phone.startsWith(form.dialCode)) {
+        payloadCountryCode = `+${form.dialCode}`;
+        payloadPhoneNo = form.phone.slice(form.dialCode.length);
+      } else if (form.phone.startsWith("91")) {
         payloadCountryCode = "+91";
         payloadPhoneNo = form.phone.slice(2);
       } else {
@@ -282,7 +285,13 @@ const ContactDetails = () => {
                     <CountryPhoneInput
                       country="in"
                       value={form.phone}
-                      onChange={handlePhoneChange}
+                      onChange={(value, country) => {
+                        setForm(prev => ({
+                          ...prev,
+                          phone: value,
+                          dialCode: country?.dialCode || '91'
+                        }));
+                      }}
                       inputProps={{
                         id: "cd-phone",
                         name: "phone",
